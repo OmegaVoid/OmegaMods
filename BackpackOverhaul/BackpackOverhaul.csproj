@@ -23,7 +23,7 @@
 
   <!-- Project settings -->
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -59,9 +59,6 @@
   </PropertyGroup>
 
   <!-- Project item includes -->
-  <ItemGroup>
-    <Folder Include="resources\assets\BackpackOverhaul" />
-  </ItemGroup>
 
   <!-- Formatting JSON files -->
   <PropertyGroup>
@@ -151,7 +148,7 @@
     <!-- Windows symlink -->
     <Exec Condition="'$(OS)' == 'Windows_NT'" Command="mklink /D &quot;$(OutputPath)assets&quot; &quot;$(ProjectDir)\resources\assets&quot;" />
     <!-- Linux/macOS symlink -->
-    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="ln -s &quot;$(OutputPath)/assets&quot; &quot;$(ProjectDir)/resources/assets&quot;" />
+    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="ln -sf &quot;$(OutputPath)/assets&quot; &quot;$(ProjectDir)/resources/assets&quot;" />
   </Target>
 
   <!-- Archives output directory into zip and puts it into Releases folder -->
