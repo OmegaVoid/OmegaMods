@@ -1,1 +1,4 @@
-<Solution />
+<Solution>
+  <Project Path="BackpackOverhaul/BackpackOverhaul.csproj" Id="4a07c11a-90b9-455e-bc1e-9b34d504c05a" />
+  <Project Path="Thaumaturgy/Thaumaturgy.csproj" Id="2207202c-c07d-4e38-9e57-7dd9ebbf043d" />
+</Solution>
