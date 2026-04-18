@@ -14,7 +14,7 @@
 
     <ItemGroup>
         <Reference Include="VintagestoryAPI">
-            <HintPath>/home/omegarogue/.config/VSLGameVersions/1.22.0-rc.9/VintagestoryAPI.dll</HintPath>
+            <HintPath>$(VINTAGE_STORY)/VintagestoryAPI.dll</HintPath>
         </Reference>
     </ItemGroup>
 </Project>
