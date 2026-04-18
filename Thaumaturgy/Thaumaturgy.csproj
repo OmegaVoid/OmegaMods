@@ -51,8 +51,8 @@
 
   <!-- Startup settings -->
   <PropertyGroup>
-    <DataFolder>$(AppData)\$(DataFolderName)</DataFolder>
-    <AditionalModsFolder>$(AppData)\$(DataFolderName)\Mods</AditionalModsFolder>
+    <AditionalModsFolder Condition="'$(OS)' == 'Windows_NT'" >$(DataFolder)\Mods</AditionalModsFolder>
+    <AditionalModsFolder  Condition="'$(OS)' != 'Windows_NT'" >$(DataFolder)/Mods</AditionalModsFolder>
     <WorldName>test_$(ModId)</WorldName>
     <ModDir>$(ProjectDir)\$(OutputDir)</ModDir>
     <EnterWorldCommand Condition="'$(EnterWorldOnStartup)' == 'true'">"-o" "$(WorldName)"</EnterWorldCommand>
@@ -95,11 +95,17 @@
     <!-- External libraries -->
     <Reference Include="$(ExternalLibDir)/**/*.dll" Private="false" Condition="'$(ExternalLibDir)' != ''" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="resources\assets\Thaumaturgy\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="resources\assets" />
+  </ItemGroup>
 
   <!-- Creating local settings file -->
   <Target Name="EnsureSettingsJson" BeforeTargets="ModInfo" Condition="!Exists('Properties\localSettings.props')">
     <MakeDir Directories="Properties" />
-    <WriteLinesToFile File="Properties\localSettings.props" Overwrite="true" Lines="&lt;Project&gt;&#xD;&#xA;  &lt;PropertyGroup&gt;&#xD;&#xA;    &lt;RunFormatter&gt;false&lt;/RunFormatter&gt;&#xD;&#xA;    &lt;DataFolderName&gt;VintagestoryData&lt;/DataFolderName&gt;&#xD;&#xA;    &lt;GameDirectory&gt;&lt;/GameDirectory&gt;&#xD;&#xA;    &lt;PackageDevBuild&gt;false&lt;/PackageDevBuild&gt;&#xD;&#xA;    &lt;EnterWorldOnStartup&gt;false&lt;/EnterWorldOnStartup&gt;&#xD;&#xA;    &lt;/PropertyGroup&gt;&#xD;&#xA;&lt;/Project&gt;" />
+    <WriteLinesToFile File="Properties\localSettings.props" Overwrite="true" Lines="&lt;Project&gt;&#xD;&#xA;  &lt;PropertyGroup&gt;&#xD;&#xA;    &lt;RunFormatter&gt;false&lt;/RunFormatter&gt;&#xD;&#xA;    &lt;DataFolder&gt;&lt;/DataFolder&gt;&#xD;&#xA;    &lt;GameDirectory&gt;&lt;/GameDirectory&gt;&#xD;&#xA;    &lt;PackageDevBuild&gt;false&lt;/PackageDevBuild&gt;&#xD;&#xA;    &lt;EnterWorldOnStartup&gt;false&lt;/EnterWorldOnStartup&gt;&#xD;&#xA;    &lt;/PropertyGroup&gt;&#xD;&#xA;&lt;/Project&gt;" />
     <Error Text="Local settings file was missing, generated a new one. Run build again." />
   </Target>
 
@@ -148,7 +154,7 @@
     <!-- Windows symlink -->
     <Exec Condition="'$(OS)' == 'Windows_NT'" Command="mklink /D &quot;$(OutputPath)assets&quot; &quot;$(ProjectDir)\resources\assets&quot;" />
     <!-- Linux/macOS symlink -->
-    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="ln -fs &quot;$(OutputPath)/assets&quot; &quot;$(ProjectDir)/resources/assets&quot;" />
+    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="ln -s &quot;$(ProjectDir)/resources/assets&quot; &quot;$(OutputPath)/assets&quot;" />
   </Target>
 
   <!-- Archives output directory into zip and puts it into Releases folder -->
