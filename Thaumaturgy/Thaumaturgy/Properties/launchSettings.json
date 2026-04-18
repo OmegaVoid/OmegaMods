@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Client": {
+      "commandName": "Executable",
+      "executablePath": "dotnet",
+      "commandLineArgs": "\"/home/omegarogue/.config/VSLGameVersions/1.22.0-rc.9/Vintagestory.dll\" --tracelog --addModPath \"$(ProjectDir)/bin/$(Configuration)/Mods\" --addOrigin \"$(ProjectDir)/assets\"",
+      "workingDirectory": "/home/omegarogue/.config/VSLGameVersions/1.22.0-rc.9"
+    },
+    "Server": {
+      "commandName": "Executable",
+      "executablePath": "dotnet",
+      "commandLineArgs": "\"/home/omegarogue/.config/VSLGameVersions/1.22.0-rc.9/VintagestoryServer.dll\" --tracelog --addModPath \"$(ProjectDir)/bin/$(Configuration)/Mods\" --addOrigin \"$(ProjectDir)/assets\"",
+      "workingDirectory": "/home/omegarogue/.config/VSLGameVersions/1.22.0-rc.9"
+    }
+  }
+}
