@@ -1,0 +1,2 @@
+- magical forge, sidegrade to electrical forge, vis for normal, essentia for special recipes
+- node transducer and stabilizer

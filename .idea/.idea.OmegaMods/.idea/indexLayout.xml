@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="UserContentModel">
-    <attachedFolders />
+    <attachedFolders>
+      <Path>../../../../home/omegarogue/.config/VSLGameVersions/1.22.0-rc.10</Path>
+      <Path>../../../../home/omegarogue/.config/VSLInstallations/Modding</Path>
+    </attachedFolders>
     <explicitIncludes />
     <explicitExcludes />
   </component>

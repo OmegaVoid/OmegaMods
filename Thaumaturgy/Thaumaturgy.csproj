@@ -4,21 +4,21 @@
     <ModName>Thaumaturgy</ModName>
     <ModType>code</ModType>
     <ModVersion>0.0.0</ModVersion>
-    <ModId>Thaumaturgy</ModId>
+    <ModId>thaumaturgy</ModId>
     <Description></Description>
     <Side>universal</Side>
     <RequiredOnClient>true</RequiredOnClient>
     <RequiredOnServer>true</RequiredOnServer>
+    <Authors>OmegaRogue,TheLegend666,RolfSteiner</Authors>
   </PropertyGroup>
 
   <!-- Authors -->
-  <ItemGroup>
-    <ModInfoAuthors Include="Author" />
-  </ItemGroup>
 
   <!-- Dependencies -->
   <ItemGroup>
     <Dependencies Include="game" Version="*" />
+    <Dependencies Include="vsimgui" Version="1.2.2" />
+    <Dependencies Include="configlib" Version="1.11.1" />
   </ItemGroup>
 
   <!-- Project settings -->
@@ -77,6 +77,7 @@
   <ItemGroup>
     <!-- ImGui for debug tools (requires ImGui mod installed if you call ImGui methods) -->
     <PackageReference Include="VSImGui" Version="0.0.6" />
+    <PackageReference Include="VSImGui_DebugTools" Version="0.0.6" />
     <!-- Vintage Story libraries -->
     <Reference Include="VintagestoryLib" HintPath="$(GameDirectory)/VintagestoryLib.dll" Private="false"/>
     <Reference Include="VintagestoryAPI" HintPath="$(GameDirectory)/VintagestoryAPI.dll" Private="false"/>
@@ -124,9 +125,8 @@
   "modid": "$(ModId)",
   "version": "$(ModVersion)",
 
-  "description": "$(Description)",
-  "authors": [ @(ModInfoAuthors->'"%(Identity)"', ', ') ],
-
+  "description": "$(Description)", 
+  "authors": [ "$([System.String]::Join($([System.String]::Concat('"',", ",'"')), $(Authors.Split([',']))))" ],
   "dependencies": {
     @(Dependencies->'"%(Identity)": "%(Version)"', ', ')
   },
