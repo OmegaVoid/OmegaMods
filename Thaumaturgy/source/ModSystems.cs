@@ -13,48 +13,62 @@ using YamlDotNet.Serialization;
 
 namespace Thaumaturgy
 {
-    public sealed class ThaumaturgyModSystem : ModSystem
+    /// <inheritdoc />
+    public partial class ThaumaturgyModSystem : ModSystem
     {
-        private ICoreAPI _api = null!;
         private ImGuiModSystem _modSystem = null!;
-        public ModConfig Settings = new();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public readonly ThaumaturgyConfig Settings = new();
+
+        /// <inheritdoc />
         public override void StartPre(ICoreAPI api)
         {
-            _api = api;
             base.StartPre(api);
+            AutoSetup(api);
         }
 
+        /// <inheritdoc />
         public override void Start(ICoreAPI api)
         {
-            if (api.ModLoader.IsModEnabled("configlib"))
-            {
-                SubscribeToConfigChange(api);
-            }
+            if (api.ModLoader.IsModEnabled("configlib")) SubscribeToConfigChange(api);
         }
-        
+
         private void SubscribeToConfigChange(ICoreAPI api)
         {
             var system = api.ModLoader.GetModSystem<ConfigLibModSystem>();
 
             system.SettingChanged += (domain, config, setting) =>
             {
-                
                 if (domain != "thaumaturgy") return;
                 setting.AssignSettingValue(Settings);
             };
-            system.ConfigsLoaded += () =>
-            {
-                system.GetConfig("thaumaturgy")?.AssignSettingsValues(Settings);
-            };
+            system.ConfigsLoaded += () => system.GetConfig("thaumaturgy")?.AssignSettingsValues(Settings);
         }
 
+        /// <inheritdoc />
         public override void StartClientSide(ICoreClientAPI api)
         {
             _modSystem = api.ModLoader.GetModSystem<ImGuiModSystem>();
             // _modSystem.Draw += Draw;
         }
-        
+
+        /// <inheritdoc />
+        public override void AssetsLoaded(ICoreAPI api)
+        {
+            base.AssetsLoaded(api);
+            AutoAssetsLoaded(api);
+        }
+
+        /// <inheritdoc />
+        public override void Dispose()
+        {
+            AutoDispose();
+            base.Dispose();
+        }
+
         // private CallbackGUIStatus Draw(float deltaSeconds)
         // {
         //     ImGui.Begin("ImGui example");

@@ -5,18 +5,24 @@ using VSImGui;
 
 namespace BackpackOverhaul
 {
-    public sealed class BackpackOverhaulModSystem : ModSystem
+    
+    /// <inheritdoc />
+    public partial class BackpackOverhaulModSystem : ModSystem
     {
-        private ICoreAPI _api = null!;
         private ImGuiModSystem _modSystem = null!;
-        public ModConfig Settings = new();
+        /// <summary>
+        /// 
+        /// </summary>
+        public readonly BackpackOverhaulConfig Settings = new();
 
+        /// <inheritdoc />
         public override void StartPre(ICoreAPI api)
         {
-            _api = api;
             base.StartPre(api);
+            AutoSetup(api);
         }
 
+        /// <inheritdoc />
         public override void Start(ICoreAPI api)
         {
             if (api.ModLoader.IsModEnabled("configlib"))
@@ -41,9 +47,24 @@ namespace BackpackOverhaul
             };
         }
 
+        /// <inheritdoc />
         public override void StartClientSide(ICoreClientAPI api)
         {
             _modSystem = api.ModLoader.GetModSystem<ImGuiModSystem>();
+        }
+        
+        /// <inheritdoc />
+        public override void AssetsLoaded(ICoreAPI api)
+        {
+            base.AssetsLoaded(api);
+            AutoAssetsLoaded(api);
+        }
+
+        /// <inheritdoc />
+        public override void Dispose()
+        {
+            AutoDispose();
+            base.Dispose();
         }
     }
 }

@@ -17,6 +17,7 @@
     <Dependencies Include="game" Version="*" />
     <Dependencies Include="vsimgui" Version="1.2.2" />
     <Dependencies Include="configlib" Version="1.11.1" />
+    <Dependencies Include="insanitylib" Version="2.0.1" />
   </ItemGroup>
 
   <!-- Project settings -->
@@ -71,6 +72,25 @@
     <AssetsToFormat Include="$(AssetsDir)\$(ModId)\config\animations" />
   </ItemGroup>
 
+
+  <PropertyGroup>
+    <!-- Path to your ModInfo file -->
+    <ModInfoFile>$(OutputPath)/modinfo.json</ModInfoFile>
+
+    <!-- Enables the generation of the xml documentation file (used by some InsanityLib features) -->
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ModID>$(ModId)</ModID>
+    <HasInsanityLibDependency>true<!--TODO check properly--></HasInsanityLibDependency>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <CompilerVisibleProperty Include="ModID" />
+    <CompilerVisibleProperty Include="HasInsanityLibDependency" />
+  </ItemGroup>
+
   <!-- References to libraries that are being used in project -->
   <ItemGroup>
     <!-- ImGui for debug tools (requires ImGui mod installed if you call ImGui methods) -->
@@ -91,6 +111,10 @@
     <Reference Include="Tavis.JsonPatch" HintPath="$(GameDirectory)/Lib/Tavis.JsonPatch.dll" Private="false"/>
     <Reference Include="SkiaSharp" HintPath="$(GameDirectory)/Lib/SkiaSharp.dll" Private="false"/>
     <Reference Include="$(GameDirectory)/Lib/OpenTK*.dll" Private="false"/>
+    
+    <PackageReference Include="TheInsanityGod.VintageStory.InsanityLib" Version="2.*" PrivateAssets="All" />
+    <PackageReference Include="JsonPeek" Version="1.2.0" />
+    
     <!-- External libraries -->
     <Reference Include="$(ExternalLibDir)/**/*.dll" Private="false" Condition="'$(ExternalLibDir)' != ''" />
   </ItemGroup>
