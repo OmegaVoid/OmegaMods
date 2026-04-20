@@ -4,21 +4,19 @@
     <ModName>BackpackOverhaul</ModName>
     <ModType>code</ModType>
     <ModVersion>0.0.0</ModVersion>
-    <ModId>BackpackOverhaul</ModId>
+    <ModId>backpackoverhaul</ModId>
     <Description></Description>
     <Side>universal</Side>
     <RequiredOnClient>true</RequiredOnClient>
     <RequiredOnServer>true</RequiredOnServer>
+    <Authors>OmegaRogue,TheLegend666,RolfSteiner</Authors>
   </PropertyGroup>
-
-  <!-- Authors -->
-  <ItemGroup>
-    <ModInfoAuthors Include="Author" />
-  </ItemGroup>
-
+  
   <!-- Dependencies -->
   <ItemGroup>
     <Dependencies Include="game" Version="*" />
+    <Dependencies Include="vsimgui" Version="1.2.2" />
+    <Dependencies Include="configlib" Version="1.11.1" />
   </ItemGroup>
 
   <!-- Project settings -->
@@ -76,6 +74,7 @@
   <!-- References to libraries that are being used in project -->
   <ItemGroup>
     <!-- ImGui for debug tools (requires ImGui mod installed if you call ImGui methods) -->
+    <PackageReference Include="VSImGui_DebugTools" Version="0.0.6" />
     <PackageReference Include="VSImGui" Version="0.0.6" />
     <!-- Vintage Story libraries -->
     <Reference Include="VintagestoryLib" HintPath="$(GameDirectory)/VintagestoryLib.dll" Private="false"/>
@@ -116,21 +115,20 @@
     <PropertyGroup>
       <ModInfo>
 {
-  "type": "$(ModType)",
-  "name": "$(ModName)",
-  "modid": "$(ModId)",
-  "version": "$(ModVersion)",
+"type": "$(ModType)",
+"name": "$(ModName)",
+"modid": "$(ModId)",
+"version": "$(ModVersion)",
 
-  "description": "$(Description)",
-  "authors": [ @(ModInfoAuthors->'"%(Identity)"', ', ') ],
+"description": "$(Description)",
+"authors": [ "$([System.String]::Join($([System.String]::Concat('"',", ",'"')), $(Authors.Split([',']))))" ],
+"dependencies": {
+@(Dependencies->'"%(Identity)": "%(Version)"', ', ')
+},
 
-  "dependencies": {
-    @(Dependencies->'"%(Identity)": "%(Version)"', ', ')
-  },
-
-  "side" : "$(Side)",
-  "requiredOnClient": $(RequiredOnClient),
-  "requiredOnServer": $(RequiredOnServer)
+"side" : "$(Side)",
+"requiredOnClient": $(RequiredOnClient),
+"requiredOnServer": $(RequiredOnServer)
 }
       </ModInfo>
     </PropertyGroup>

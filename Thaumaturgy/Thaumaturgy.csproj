@@ -11,9 +11,7 @@
     <RequiredOnServer>true</RequiredOnServer>
     <Authors>OmegaRogue,TheLegend666,RolfSteiner</Authors>
   </PropertyGroup>
-
-  <!-- Authors -->
-
+  
   <!-- Dependencies -->
   <ItemGroup>
     <Dependencies Include="game" Version="*" />

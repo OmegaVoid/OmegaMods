@@ -17,7 +17,7 @@ namespace Thaumaturgy
     {
         private ICoreAPI _api = null!;
         private ImGuiModSystem _modSystem = null!;
-        public Settings Settings = new();
+        public ModConfig Settings = new();
 
         public override void StartPre(ICoreAPI api)
         {
