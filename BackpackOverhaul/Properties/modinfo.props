@@ -1,0 +1,16 @@
+<Project>
+    <PropertyGroup>
+<!--        <Contributors>fsdg</Contributors>-->
+        <ModType>code</ModType>
+        <Side>universal</Side>
+        <RequiredOnClient>true</RequiredOnClient>
+        <RequiredOnServer>true</RequiredOnServer>
+    </PropertyGroup>
+    <ItemGroup>
+        <!-- Fetch controls whether to automatically download the mod from moddb as a dependency -->
+        <Dependency Include="game" Version="*" Fetch="false"/>
+        <Dependency Include="vsimgui" Version="1.2.2" />
+        <Dependency Include="configlib" Version="1.11.1" />
+        <Dependency Include="insanitylib" Version="2.0.1" Fetch="false"/>
+    </ItemGroup>
+</Project>

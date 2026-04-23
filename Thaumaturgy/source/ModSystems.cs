@@ -9,7 +9,6 @@ using Vintagestory.GameContent;
 using Vintagestory.GameContent.Mechanics;
 using VSImGui;
 using VSImGui.API;
-using YamlDotNet.Serialization;
 
 namespace Thaumaturgy
 {
