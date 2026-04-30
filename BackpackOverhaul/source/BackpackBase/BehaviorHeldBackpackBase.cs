@@ -9,14 +9,11 @@ using Vintagestory.GameContent;
 
 namespace BackpackOverhaul.BackpackSystem
 {
-    /// <inheritdoc />
     public class CollectibleBehaviorHeldBackpackBase : CollectibleBehaviorHeldBag, IHeldBag, IAttachedListener
     {
-        /// <inheritdoc />
         public CollectibleBehaviorHeldBackpackBase(CollectibleObject collObj) : base(collObj)
         {
         }
-        /// <inheritdoc />
         public override TagSet GetStorageTags(ItemStack bagStack)
         {
             return bagStack.ItemAttributes["backpack"]["storageTags"].AsObject<TagSet>();
