@@ -1,7 +1,8 @@
-﻿using Vintagestory.API.Client;
+﻿using InsanityLib.Generators.Attributes;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using VSImGui;
-
+[assembly: AutoRegistryName(RemovePrefix = ["CollectibleBehavior", "Block", "EntityBehavior", "Entity", "BlockEntity", "BlockEntiityBehavior", "BlockBehavior", "Item"])]
 namespace BackpackOverhaul
 {
     
