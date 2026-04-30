@@ -1,0 +1,15 @@
+{
+  code: "amber_block",
+  blockmaterial: "stone",
+  creativeinventory: { thaumaturgy: [ "*" ] },
+  textures: {
+
+    top: { base: "block/amberblock_top" },
+    all: { base: "block/amberblock" },
+  },
+  sounds: {
+    place: "game:block/stone",
+    break: "game:block/stone"
+  },
+  class: "thaumaturgy:BlockTrampoline"
+}

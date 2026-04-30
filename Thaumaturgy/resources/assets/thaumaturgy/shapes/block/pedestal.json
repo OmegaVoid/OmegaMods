@@ -1,0 +1,57 @@
+{
+	"editor": {
+		"backDropShape": "",
+		"collapsedPaths": "",
+		"allAngles": false,
+		"entityTextureMode": false,
+		"singleTexture": false,
+		"vsFormatConverted": false
+	},
+	"textures": {
+		"side": "block/pedestal_side",
+		"top": "block/pedestal_top"
+	},
+	"elements": [
+		{
+			"name": "cube",
+			"from": [0, 0, 0],
+			"to": [16, 4, 16],
+			"rotationOrigin": [8, 0, 8],
+			"faces": {
+				"north": {"texture": "#side", "uv": [0, 12, 16, 16], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#side", "uv": [0, 12, 16, 16], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#side", "uv": [0, 12, 16, 16], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#side", "uv": [0, 12, 16, 16], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#top", "uv": [0, 0, 16, 16], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#top", "uv": [0, 0, 16, 16], "rotation": 180, "autoUv": false, "snapUv": false}
+			}
+		},
+		{
+			"name": "cube",
+			"from": [4, 4, 4],
+			"to": [12, 12, 12],
+			"rotationOrigin": [5, 4, 5],
+			"faces": {
+				"north": {"texture": "#side", "uv": [4, 4, 12, 12], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#side", "uv": [4, 4, 12, 12], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#side", "uv": [4, 4, 12, 12], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#side", "uv": [4, 4, 12, 12], "autoUv": false, "snapUv": false}
+			}
+		},
+		{
+			"name": "cube",
+			"from": [2, 12, 2],
+			"to": [14, 16, 14],
+			"rotationOrigin": [3, 12, 3],
+			"faces": {
+				"north": {"texture": "#side", "uv": [2, 0, 14, 4], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#side", "uv": [2, 0, 14, 4], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#side", "uv": [2, 0, 14, 4], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#side", "uv": [2, 0, 14, 4], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#top", "uv": [2, 2, 14, 14], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#top", "uv": [2, 2, 14, 14], "rotation": 180, "autoUv": false, "snapUv": false}
+			}
+		}
+	],
+	"animations": []
+}

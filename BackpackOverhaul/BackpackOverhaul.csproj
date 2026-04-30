@@ -21,9 +21,9 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Releases\" />
-  </ItemGroup>
+<!--  <ItemGroup>-->
+<!--    <Folder Include="Releases\" />-->
+<!--  </ItemGroup>-->
   
   <PropertyGroup>
     <!-- Path to your ModInfo file -->
@@ -34,7 +34,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ModID>$(ModId)</ModID>
+    <ModID>$(PackageId)</ModID>
     <HasInsanityLibDependency>true<!--TODO check properly--></HasInsanityLibDependency>
   </PropertyGroup>
 
@@ -48,7 +48,7 @@
     <PackageReference Include="TheInsanityGod.VintageStory.InsanityLib" Version="2.*" PrivateAssets="All" />
     <PackageReference Include="JsonPeek" Version="1.2.0" />
 
-    <PackageReference Include="OmegaVoid.VintageStory.Sdk.Tasks" Version="0.1.5" />
+    <PackageReference Include="OmegaVoid.VintageStory.Sdk.Tasks" Version="0.3.0" />
   </ItemGroup>
 
 </Project>

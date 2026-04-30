@@ -1,5 +1,5 @@
-﻿using ConfigLib;
-using ImGuiNET;
+﻿// using ConfigLib;
+// using ImGuiNET;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -7,15 +7,16 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 using Vintagestory.GameContent.Mechanics;
-using VSImGui;
-using VSImGui.API;
+// using VSImGui;
+// using VSImGui.API;
+
 
 namespace Thaumaturgy
 {
     /// <inheritdoc />
     public partial class ThaumaturgyModSystem : ModSystem
     {
-        private ImGuiModSystem _modSystem = null!;
+        // private ImGuiModSystem _modSystem = null!;
 
         /// <summary>
         /// 
@@ -33,24 +34,25 @@ namespace Thaumaturgy
         public override void Start(ICoreAPI api)
         {
             if (api.ModLoader.IsModEnabled("configlib")) SubscribeToConfigChange(api);
+            
         }
 
         private void SubscribeToConfigChange(ICoreAPI api)
         {
-            var system = api.ModLoader.GetModSystem<ConfigLibModSystem>();
-
-            system.SettingChanged += (domain, config, setting) =>
-            {
-                if (domain != "thaumaturgy") return;
-                setting.AssignSettingValue(Settings);
-            };
-            system.ConfigsLoaded += () => system.GetConfig("thaumaturgy")?.AssignSettingsValues(Settings);
+            // var system = api.ModLoader.GetModSystem<ConfigLibModSystem>();
+            //
+            // system.SettingChanged += (domain, config, setting) =>
+            // {
+            //     if (domain != "thaumaturgy") return;
+            //     setting.AssignSettingValue(Settings);
+            // };
+            // system.ConfigsLoaded += () => system.GetConfig("thaumaturgy")?.AssignSettingsValues(Settings);
         }
 
         /// <inheritdoc />
         public override void StartClientSide(ICoreClientAPI api)
         {
-            _modSystem = api.ModLoader.GetModSystem<ImGuiModSystem>();
+            // _modSystem = api.ModLoader.GetModSystem<ImGuiModSystem>();
             // _modSystem.Draw += Draw;
         }
 

@@ -1,53 +1,64 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <!-- Mod info -->
-  <PropertyGroup>
-    <Description></Description>
-    <Authors>OmegaRogue,TheLegend666,RolfSteiner</Authors>
+    <!-- Mod info -->
+    <PropertyGroup>
+        <Description></Description>
+        <Authors>OmegaRogue,TheLegend666,RolfSteiner</Authors>
 
-    <PackageId>thaumaturgy</PackageId>
-    <Version>0.1.0</Version>
-    <PackageProjectUrl>https://github.com/OmegaVoid/OmegaMods</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/OmegaVoid/OmegaMods</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <Title>Thaumaturgy</Title>
-  </PropertyGroup>
+        <PackageId>thaumaturgy</PackageId>
+        <Version>0.1.1</Version>
+        <PackageProjectUrl>https://github.com/OmegaVoid/OmegaMods</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/OmegaVoid/OmegaMods</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <Title>Thaumaturgy</Title>
+    </PropertyGroup>
+    <!--
+  Source - https://stackoverflow.com/a/62982369
+  Posted by LazZiya, modified by community. See post 'Timeline' for change history
+  Retrieved 2026-04-27, License - CC BY-SA 4.0
+  -->
 
-  <!-- Project settings -->
-  <PropertyGroup>
-    <OutputDir>bin\$(Configuration)</OutputDir>
-    <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Releases\" />
-  </ItemGroup>
 
-  <PropertyGroup>
-    <!-- Path to your ModInfo file -->
-    <ModInfoFile>$(OutputPath)/modinfo.json</ModInfoFile>
+    <!-- Project settings -->
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+    <PropertyGroup>
+        <!-- Path to your ModInfo file -->
+        <ModInfoFile>$(OutputPath)/modinfo.json</ModInfoFile>
 
-    <!-- Enables the generation of the xml documentation file (used by some InsanityLib features) -->
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
+        <!-- Enables the generation of the xml documentation file (used by some InsanityLib features) -->
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <ModID>$(PackageId)</ModID>
-    <HasInsanityLibDependency>true<!--TODO check properly--></HasInsanityLibDependency>
-  </PropertyGroup>
+    <PropertyGroup>
+        <ModID>$(PackageId)</ModID>
+        <HasInsanityLibDependency>true<!--TODO check properly--></HasInsanityLibDependency>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <CompilerVisibleProperty Include="ModID" />
-    <CompilerVisibleProperty Include="HasInsanityLibDependency" />
-  </ItemGroup>
+    <ItemGroup>
+        <CompilerVisibleProperty Include="ModID"/>
+        <CompilerVisibleProperty Include="HasInsanityLibDependency"/>
+    </ItemGroup>
 
-  <!-- References to libraries that are being used in project -->
-  <ItemGroup>
-    <PackageReference Include="TheInsanityGod.VintageStory.InsanityLib" Version="2.*" PrivateAssets="All" />
-    <PackageReference Include="JsonPeek" Version="1.2.0" />
+    <Target Name="ForceRebuild" BeforeTargets="CopyFilesToOutput">
+        <!--    <Touch Files="@(Compile)" AlwaysCreate="true" />-->
+        <Message Importance="high" Text="@(AssetsCopy)"/>
+    </Target>
+<!--    <Target Name="test" AfterTargets="ZipFiles">-->
+<!--        <MakeDir Directories="$(ReleasesDir)\$(ReleaseFile)"/>-->
+<!--        <Unzip DestinationFolder="$(ReleasesDir)\$(ReleaseFile)" SourceFiles="$(ReleasePath)"/>-->
+<!--    </Target>-->
 
-    <PackageReference Include="OmegaVoid.VintageStory.Sdk.Tasks" Version="0.1.5" />
-  </ItemGroup>
+    <!-- References to libraries that are being used in project -->
+    <ItemGroup>
+        <PackageReference Include="CraluminumMods.VintageStory.AttributeRenderingLibrary" Version="3.1.0" />
+        <PackageReference Include="TheInsanityGod.VintageStory.InsanityLib" Version="2.*" PrivateAssets="All"/>
+        <PackageReference Include="JsonPeek" Version="1.2.0"/>
 
+        <PackageReference Include="OmegaVoid.VintageStory.Sdk.Tasks" Version="0.3.0" />
+
+    </ItemGroup>
 </Project>

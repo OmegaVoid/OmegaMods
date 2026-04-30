@@ -1,0 +1,18 @@
+{
+    code: "infusion_matrix",
+    blockmaterial: "stone",
+    creativeinventory: { thaumaturgy: [ "*" ] },
+    textures: {
+        
+        all: { base: "block/infuser" },
+    },
+    shape: { base: "block/matrix" },
+    sounds: {
+        place: "game:block/stone",
+        break: "game:block/stone"
+    },
+    sideopaque: {
+        all: false
+    },
+    class: "thaumaturgy:BlockTrampoline"
+}

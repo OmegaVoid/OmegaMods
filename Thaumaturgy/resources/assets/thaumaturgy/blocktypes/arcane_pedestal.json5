@@ -1,0 +1,20 @@
+{
+    code: "arcane_pedestal",
+    blockmaterial: "stone",
+    creativeinventory: { thaumaturgy: [ "*" ] },
+    textures: {
+
+        top: { base: "block/pedestal_top" },
+        side: { base: "block/pedestal_side" },
+    },
+    shape: { base: "block/pedestal" },
+    sounds: {
+        place: "game:block/stone",
+        break: "game:block/stone"
+    },
+    sideopaque: {
+        side: false,
+        top: false
+    },
+    class: "thaumaturgy:BlockTrampoline"
+}
