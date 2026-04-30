@@ -39,8 +39,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="resources\assets\**" />
+    <EmbeddedResource Remove="resources\assets\**" />
+    <None Remove="resources\assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <CompilerVisibleProperty Include="ModID" />
     <CompilerVisibleProperty Include="HasInsanityLibDependency" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="resources\assets\backpackoverhaul\miningbag2.json" />
   </ItemGroup>
 
   <!-- References to libraries that are being used in project -->
@@ -49,6 +59,10 @@
     <PackageReference Include="JsonPeek" Version="1.2.0" />
 
     <PackageReference Include="OmegaVoid.VintageStory.Sdk.Tasks" Version="0.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="resources\assets\backpackoverhaul\" />
+    <Folder Include="source\BackpackBase\" />
   </ItemGroup>
 
 </Project>
