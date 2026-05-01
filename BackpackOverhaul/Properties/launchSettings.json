@@ -3,13 +3,14 @@
     "Client": {
       "commandName": "Executable",
       "executablePath": "dotnet",
-      "commandLineArgs": "\"$(GameDirectory)/Vintagestory.dll\" --tracelog --dataPath \"$(DataFolder)\" --addModPath \"$(AdditionalModsFolder)\" \"$(ReleasesDir)\" \"$(ModDepsFolder) $(EnterWorldCommand)",
-      "workingDirectory": "$(GameDirectory)"
+      "commandLineArgs": "\"$(GameDirectory)/Vintagestory.dll\" $(EnterWorldCommand) --tracelog --dataPath \"$(DataFolder)\" --addModPath \"$(AdditionalModsFolder)\" \"$(ReleasesDir)\" \"\"$(ModDepsFolder)\" ",
+      "workingDirectory": "$(GameDirectory)",
+      "nativeDebugging": true
     },
     "Server": {
       "commandName": "Executable",
       "executablePath": "dotnet",
-      "commandLineArgs": "\"$(GameDirectory)/VintagestoryServer.dll\" --tracelog --dataPath \"$(DataFolder)\" --addModPath \"$(AdditionalModsFolder)\" \"$(ReleasesDir)\" \"$(ModDepsFolder) $(EnterWorldCommand)",
+      "commandLineArgs": "\"$(GameDirectory)/VintagestoryServer.dll\" $(EnterWorldCommand) --tracelog --dataPath \"$(DataFolder)\" --addModPath \"$(AdditionalModsFolder)\" \"$(ReleasesDir)\" \"\"$(ModDepsFolder)\" ",
       "workingDirectory": "$(GameDirectory)"
     },
     "Push": {
