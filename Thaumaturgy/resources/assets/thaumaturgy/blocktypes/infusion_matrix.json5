@@ -1,18 +1,30 @@
 {
-    code: "infusion_matrix",
-    blockmaterial: "stone",
-    creativeinventory: { thaumaturgy: [ "*" ] },
-    textures: {
-        
-        all: { base: "block/infuser" },
+  code: "infusion_matrix",
+  blockmaterial: "stone",
+  creativeinventory: {
+    thaumaturgy: [
+      "*"
+    ]
+  },
+  textures: {
+    "infuser.png": {
+      base: "block/infuser"
     },
-    shape: { base: "block/matrix" },
-    sounds: {
-        place: "game:block/stone",
-        break: "game:block/stone"
+    "infuser_rune.png": {
+      base: "block/infuser"
     },
-    sideopaque: {
-        all: false
-    },
-    class: "thaumaturgy:BlockTrampoline"
+  },
+  shape: {
+    base: "block/matrix3"
+  },
+  sounds: {
+    place: "game:block/stone",
+    break: "game:block/stone"
+  },
+  sideopaque: {
+    all: false
+  },
+  class: "thaumaturgy:BlockInfusionMatrix",
+  entityClass: "thaumaturgy:BlockEntityInfusionMatrix",
+  entityBehaviors: [{ name: "Animatable" }]
 }
