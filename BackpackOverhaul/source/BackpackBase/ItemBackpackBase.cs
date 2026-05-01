@@ -25,7 +25,6 @@ namespace BackpackOverhaul.BackpackBase
             ItemSlot[]? t = (api.World.AllPlayers.First((item) => item.Entity == targetEntity).InventoryManager.Inventories.First((item) => item.Value.ClassName == "backpack").Value as InventoryPlayerBackpacks)?.bagSlots.Where((item) => item.Itemstack != null).Where((item) => item.Itemstack!.Item != this).ToArray();
             string? childPath = null;
             if (shape != null & targetAtlas != null & shapePath != null & t != null)
-            {
                 foreach (ItemSlot slot in t!)
                 {
                     childPath = slot.Itemstack!.Item.Attributes["backpack"]["attachedShape"].AsObject<CompositeShape>(null, slot.Itemstack.Item.Code.Domain)?.Base.CopyWithPathPrefixAndAppendixOnce("shapes/", ".json");
@@ -36,7 +35,6 @@ namespace BackpackOverhaul.BackpackBase
                         i += 1;
                     }
                 }
-            }
             return shape;
         }
     }
