@@ -18,6 +18,6 @@ namespace BackpackOverhaul.BackpackSystem
         public override TagSet GetStorageTags(ItemStack bagStack)
         {
             return bagStack.ItemAttributes["backpack"]["storageTags"].AsObject<TagSet>();
-        }  
+        }
     }
 }

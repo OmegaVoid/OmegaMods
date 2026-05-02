@@ -9,7 +9,9 @@
     <ItemGroup>
         <!-- Fetch controls whether to automatically download the mod from moddb as a dependency -->
         <Dependency Include="game" Version="*" Fetch="false"/>
-        <Dependency Include="vsimgui" Version="1.2.2" />
-        <Dependency Include="insanitylib" Version="2.0.1" Fetch="false" DownloadDep="true"/>
+		<Dependency Include="vsimgui" Version="1.2.2" />
+		<!--<Dependency Include="playerinventorylib" Version="0.0.8" />-->
+		<!--<Dependency Include="overhaullib" Version="2.0.6" />-->
+	<Dependency Include="insanitylib" Version="2.0.1" Fetch="false" DownloadDep="true"/>
     </ItemGroup>
 </Project>
