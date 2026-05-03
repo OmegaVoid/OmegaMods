@@ -5,7 +5,7 @@
       "executablePath": "dotnet",
       "commandLineArgs": "\"$(GameDirectory)/Vintagestory.dll\" $(EnterWorldCommand) --tracelog --dataPath \"$(DataFolder)\" --addModPath \"$(AdditionalModsFolder)\" \"$(ReleasesDir)\" \"\"$(ModDepsFolder)\" ",
       "workingDirectory": "$(GameDirectory)",
-      "nativeDebugging": true
+      "nativeDebugging": false
     },
     "Server": {
       "commandName": "Executable",
