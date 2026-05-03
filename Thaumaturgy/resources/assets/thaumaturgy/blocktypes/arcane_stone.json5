@@ -4,7 +4,7 @@
     creativeinventory: { thaumaturgy: [ "*" ] },
     textures: {
         
-        all: { base: "block/pedestal_top" },
+        all: { base: "block/custom/arcane_stone" },
     },
     sounds: {
         place: "game:block/stone",

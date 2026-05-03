@@ -7,11 +7,11 @@
     ]
   },
   textures: {
-    "infuser.png": {
-      base: "block/infuser"
+    "infuser": {
+      base: "block/custom/infuser"
     },
-    "infuser_rune.png": {
-      base: "block/infuser"
+    "infuser_rune": {
+      base: "block/custom/infuser_rune"
     },
   },
   shape: {
@@ -26,5 +26,6 @@
   },
   class: "thaumaturgy:BlockInfusionMatrix",
   entityClass: "thaumaturgy:BlockEntityInfusionMatrix",
-  entityBehaviors: [{ name: "Animatable" }]
+  entityBehaviors: [{ name: "Animatable" }],
+  lightAbsorption: 0
 }

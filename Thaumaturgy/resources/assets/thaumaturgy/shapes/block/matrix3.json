@@ -10,12 +10,12 @@
 	"textureWidth": 16,
 	"textureHeight": 16,
 	"textureSizes": {
-		"infuser.png": [16, 16],
-		"infuser_rune.png": [16, 16]
+		"infuser": [16, 16],
+		"infuser_rune": [16, 16]
 	},
 	"textures": {
-		"infuser.png": "unknown",
-		"infuser_rune.png": "unknown"
+		"infuser": "unknown",
+		"infuser_rune": "unknown"
 	},
 	"elements": [
 		{
@@ -30,12 +30,12 @@
 					"to": [4, 12, 12],
 					"rotationOrigin": [-12, -4, -4],
 					"faces": {
-						"north": {"texture": "#infuser.png", "uv": [4, 4, 8, 8], "rotation": 180, "autoUv": false, "snapUv": false},
-						"east": {"texture": "#infuser.png", "uv": [8, 4, 12, 8], "rotation": 180, "autoUv": false, "snapUv": false},
-						"south": {"texture": "#infuser.png", "uv": [12, 4, 16, 8], "rotation": 180, "autoUv": false, "snapUv": false},
-						"west": {"texture": "#infuser.png", "uv": [0, 4, 4, 8], "autoUv": false, "snapUv": false},
-						"up": {"texture": "#infuser.png", "uv": [8, 0, 12, 4], "rotation": 180, "autoUv": false, "snapUv": false},
-						"down": {"texture": "#infuser.png", "uv": [4, 0, 8, 4], "autoUv": false, "snapUv": false}
+						"north": {"texture": "#infuser", "uv": [4, 4, 8, 8], "rotation": 180, "autoUv": false, "snapUv": false},
+						"east": {"texture": "#infuser", "uv": [8, 4, 12, 8], "rotation": 180, "autoUv": false, "snapUv": false},
+						"south": {"texture": "#infuser", "uv": [12, 4, 16, 8], "rotation": 180, "autoUv": false, "snapUv": false},
+						"west": {"texture": "#infuser", "uv": [0, 4, 4, 8], "autoUv": false, "snapUv": false},
+						"up": {"texture": "#infuser", "uv": [8, 0, 12, 4], "rotation": 180, "autoUv": false, "snapUv": false},
+						"down": {"texture": "#infuser", "uv": [4, 0, 8, 4], "autoUv": false, "snapUv": false}
 					},
 					"shade": false
 				},
@@ -51,12 +51,12 @@
 							"to": [8, 16, 16],
 							"rotationOrigin": [-8, 0, 0],
 							"faces": {
-								"north": {"texture": "#infuser_rune.png", "uv": [4, 12, 8, 16], "rotation": 180, "autoUv": false, "snapUv": false},
-								"east": {"texture": "#infuser_rune.png", "uv": [8, 12, 12, 16], "rotation": 180, "autoUv": false, "snapUv": false},
-								"south": {"texture": "#infuser_rune.png", "uv": [12, 12, 16, 16], "rotation": 180, "autoUv": false, "snapUv": false},
-								"west": {"texture": "#infuser_rune.png", "uv": [0, 12, 4, 16], "autoUv": false, "snapUv": false},
-								"up": {"texture": "#infuser_rune.png", "uv": [8, 8, 12, 12], "rotation": 180, "autoUv": false, "snapUv": false},
-								"down": {"texture": "#infuser_rune.png", "uv": [4, 8, 8, 12], "autoUv": false, "snapUv": false}
+								"north": {"texture": "#infuser_rune", "uv": [4, 12, 8, 16], "rotation": 180, "autoUv": false, "snapUv": false},
+								"east": {"texture": "#infuser_rune", "uv": [8, 12, 12, 16], "rotation": 180, "autoUv": false, "snapUv": false},
+								"south": {"texture": "#infuser_rune", "uv": [12, 12, 16, 16], "rotation": 180, "autoUv": false, "snapUv": false},
+								"west": {"texture": "#infuser_rune", "uv": [0, 12, 4, 16], "autoUv": false, "snapUv": false},
+								"up": {"texture": "#infuser_rune", "uv": [8, 8, 12, 12], "rotation": 180, "autoUv": false, "snapUv": false},
+								"down": {"texture": "#infuser_rune", "uv": [4, 8, 8, 12], "autoUv": false, "snapUv": false}
 							},
 							"shade": false
 						}

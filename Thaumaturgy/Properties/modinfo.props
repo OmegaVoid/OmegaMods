@@ -10,7 +10,6 @@
         <!-- Fetch controls whether to automatically download the mod from moddb as a dependency -->
         <Dependency Include="game" Version="*" Fetch="false"/>
         <Dependency Include="vsimgui" Version="1.2.2" />
-        <Dependency Include="configlib" Version="1.11.1" />
         <Dependency Include="insanitylib" Version="2.0.1" Fetch="false"/>
         <Dependency Include="jsonpatcheslib" Version="1.4.1" />
         <Dependency Include="vintageengineering" Version="0.5.4"/>

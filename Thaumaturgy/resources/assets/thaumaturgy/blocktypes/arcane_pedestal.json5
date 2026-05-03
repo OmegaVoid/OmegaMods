@@ -4,7 +4,7 @@
     creativeinventory: { thaumaturgy: [ "*" ] },
     textures: {
 
-        top: { base: "block/pedestal_top" },
+        top: { base: "block/custom/arcane_stone" },
         side: { base: "block/pedestal_side" },
     },
     shape: { base: "block/pedestal" },
@@ -16,5 +16,6 @@
         side: false,
         top: false
     },
-    class: "thaumaturgy:BlockTrampoline"
+    class: "thaumaturgy:BlockPedestal",
+    entityClass: "thaumaturgy:BlockEntityPedestal"
 }
