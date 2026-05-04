@@ -23,7 +23,7 @@
     }
   },
   textures: {
-    obj: { base: "block/pedestal_top" }
+    obj: { base: "block/custom/arcane_stone" }
   },
   blockmaterial: "Ceramic",
   replaceable: 900,

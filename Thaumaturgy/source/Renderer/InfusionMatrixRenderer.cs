@@ -30,7 +30,7 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
     private TextureAtlasPosition _texPos;
     private LoadedTexture _tex;
 
-    public double RenderOrder => 0.5;
+    public double RenderOrder => 0.37;
 
     public int RenderRange => 24;
 
@@ -82,8 +82,8 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
             render.AddPointLight(CraftingLight);
             CraftingLightAdded = true;
         }
-
-
+        
+        
         render.GlDisableCullFace();
         render.GlToggleBlend(true);
         var prog = render.PreparedStandardShader(Pos.X, Pos.Y, Pos.Z);
@@ -112,7 +112,7 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
         //         pos.Z - cameraPos.Z).Translate(0.5f, 11f / 16f, 0.5f).RotateY(Startup)
         //     .Translate(-0.5f, 0.0f, -0.5f).Values;
         // prog.ModelMatrix = ModelMat.Identity().Translate(pos.X - cameraPos.X,pos.Y - cameraPos.Y, pos.Z - cameraPos.Z).RotateDeg(new Vec3f(35f*Startup,Ticks%360*Startup,45f*Startup)).Values;
-        render.AddPointLight(CraftingLight);
+        // render.AddPointLight(CraftingLight);
 
 
         prog.ViewMatrix = render.CameraMatrixOriginf;
@@ -191,7 +191,7 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
         prog.RgbaGlowIn = new Vec4f(0.8f, 0.1f, 1f,
             (MathF.Sin((RenderTicks + a * 2 + b * 3 + c * 4) / 4f) * .1f + .2f) * Startup);
         
-        render.RenderMultiTextureMesh(MeshRef, "tex", _tex.TextureId);
+        // render.RenderMultiTextureMesh(MeshRef, "tex2dOverlay", _tex.TextureId);
     }
 
     private void RenderHalo(IStandardShaderProgram prog, IRenderAPI render, Matrixf baseMat)
@@ -219,7 +219,7 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
 
         if (CraftingLightAdded)
         {
-            _coreClientApi.Render.RemovePointLight(CraftingLight);
+            // _coreClientApi.Render.RemovePointLight(CraftingLight);
             CraftingLightAdded = false;
         }
 

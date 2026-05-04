@@ -5,7 +5,7 @@
     textures: {
 
         top: { base: "block/custom/arcane_stone" },
-        side: { base: "block/pedestal_side" },
+        side: { base: "block/custom/arcane_stone" },
     },
     shape: { base: "block/pedestal" },
     sounds: {
