@@ -16,12 +16,15 @@ namespace BackpackOverhaul.BackpackBase.HarmonyPatches
         {
             if (__instance.Inventory.FirstNonEmptySlot?.Itemstack?.Item is ItemBackpackBase backpack)
              {
+                backpack.beGroundStorage = __instance;
+                if (backpack.dirty | !backpack.dirty) (__instance.Api as ICoreAPI)!.ObjectCache.Remove("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString());
                 bool tryed = (__instance.Api as ICoreClientAPI)!.ObjectCache.TryGetValue("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString(), out var _mesh);
                 var mesh = _mesh as MeshData;
-                if (!tryed)
+                if (!tryed & backpack.texSource != null)
                 {
                     tesselator.TesselateShape("mylog",backpack.shape, out mesh, backpack.texSource);
                     (__instance.Api as ICoreClientAPI)!.ObjectCache.Add("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString(), mesh);
+                    backpack.dirty = false;
                 }
                 mesher.AddMeshData(mesh);
             }
@@ -33,10 +36,7 @@ namespace BackpackOverhaul.BackpackBase.HarmonyPatches
     {
         public static bool Prefix(BlockEntityGroundStorage __instance)
         {
-            if (__instance.Inventory.FirstNonEmptySlot?.Itemstack?.Item is ItemBackpackBase backpack)
-            {
-                (__instance.Api as ICoreAPI)!.ObjectCache.Remove("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString());
-            }
+            (__instance.Api as ICoreAPI)!.ObjectCache.Remove("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString());
             return false;
         }
     }
