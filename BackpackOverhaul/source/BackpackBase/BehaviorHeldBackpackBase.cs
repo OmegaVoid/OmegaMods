@@ -17,7 +17,11 @@ namespace BackpackOverhaul.BackpackSystem
         public CollectibleBehaviorHeldBackpackBase(CollectibleObject collObj) : base(collObj) { }
         public override TagSet GetStorageTags(ItemStack bagStack)
         {
-            return bagStack.ItemAttributes["backpack"]["storageTags"].AsObject<TagSet>();
+            return bagStack.ItemAttributes["backpack"]["storageTags"].AsObject<TagSet>(); //,properties: {tags: ["tool-knife"]}
+        }
+        public override EnumItemStorageFlags GetStorageFlags(ItemStack bagstack)
+        {
+            return EnumItemStorageFlags.Backpack;
         }
     }
 }

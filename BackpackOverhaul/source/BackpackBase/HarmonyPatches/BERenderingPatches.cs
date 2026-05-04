@@ -20,7 +20,7 @@ namespace BackpackOverhaul.BackpackBase.HarmonyPatches
                 var mesh = _mesh as MeshData;
                 if (!tryed)
                 {
-                    tesselator.TesselateShape("mylog",backpack._shape, out mesh, backpack.texSource);
+                    tesselator.TesselateShape("mylog",backpack.shape, out mesh, backpack.texSource);
                     (__instance.Api as ICoreClientAPI)!.ObjectCache.Add("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString(), mesh);
                 }
                 mesher.AddMeshData(mesh);

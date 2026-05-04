@@ -5,7 +5,7 @@
 	shape: { base: "item/mybag" },
 	behaviors: [
 		{ name: "GroundStorable", properties: { layout: "SingleCenter", collisionBox: { x1: 0.25, y1: 0, z1: 0.25, x2: 0.75, y2: 0.375, z2: 0.75 }}},
-		{ name: "backpackoverhaul:HeldBackpackBase" },
+		{ name: "backpackoverhaul:HeldBackpackBase"},
 		{ name: "GroundStoredHeldBag", properties: {dialogTitleLangCode: "miningbagcontents"}}
 	],
 	textures: {
@@ -34,8 +34,9 @@
 	},
 	attributes: {
 		backpack: {
-			quantitySlots: 12,
-			storageTags: ["tool-knife", "tool-axe"]
+			quantitySlots: 4,
+			storageTags: [ "backpack-attachment" ],
+			slotBgColor: "#f73434"
 		},
 		attachableToEntity: {
 			categoryCode: "backpack",
