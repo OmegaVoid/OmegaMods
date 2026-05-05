@@ -26,8 +26,7 @@ namespace BackpackOverhaul.BackpackBase
         }
         public Shape? GetShape(ItemStack itemStack, Entity targetEntity, string texturePrefixCode)
         {
-            //string[] p = ["W", "E", "top"];
-            int i = 2;
+            int i = 1;
             Shape? _attachedShape = attachedShape?.Clone();
             Shape? _shape = baseShape!.Clone();
             IDictionary<string, CompositeTexture> collectedTextures = this.Textures;
@@ -42,9 +41,8 @@ namespace BackpackOverhaul.BackpackBase
                         childShape.Elements[0].StepParentName = "backpack" + i.ToString();
                         _attachedShape!.StepParentShape(childShape, texturePrefixCode, childPath, attachedShapePath, api.World.Logger, (texcode, tloc) => EntityBehaviorContainer.addTexture((api as ICoreClientAPI), texcode, tloc, collectedTextures, texturePrefixCode, targetAtlas));
                         _shape!.StepParentShape(childShape, texturePrefixCode, childPath, attachedShapePath, api.World.Logger, (texcode, tloc) => EntityBehaviorContainer.addTexture((api as ICoreClientAPI), texcode, tloc, collectedTextures, texturePrefixCode, targetAtlas));
-
-                        i += 1;
                     }
+                    i += 1;
                 }
             if (collectedTextures != null) texSource = new ShapeTextureSource((api as ICoreClientAPI)!, _shape, "mylog", collectedTextures, (p) => p);
             shape = _shape;
@@ -52,8 +50,7 @@ namespace BackpackOverhaul.BackpackBase
         }
         public void RefreshShape(ItemStack itemStack, string texturePrefixCode = null)
         {
-            //string[] p = ["W", "E", "top"];
-            int i = 2;
+            int i = 1;
             Shape? _shape = baseShape!.Clone();
             IDictionary<string, CompositeTexture> collectedTextures = this.Textures;
             ITextureAtlasAPI? targetAtlas = (api as ICoreClientAPI)?.ItemTextureAtlas;
@@ -66,9 +63,8 @@ namespace BackpackOverhaul.BackpackBase
                     {
                         childShape.Elements[0].StepParentName = "backpack" + i.ToString();
                         _shape!.StepParentShape(childShape, texturePrefixCode, childPath, attachedShapePath, api.World.Logger, (texcode, tloc) => EntityBehaviorContainer.addTexture((api as ICoreClientAPI), texcode, tloc, collectedTextures, texturePrefixCode, targetAtlas));
-
-                        i += 1;
                     }
+                    i += 1;
                 }
             if (collectedTextures != null) texSource = new ShapeTextureSource((api as ICoreClientAPI)!, _shape, "mylog", collectedTextures, (p) => p);
             shape = _shape;
