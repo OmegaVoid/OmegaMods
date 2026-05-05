@@ -16,8 +16,8 @@ namespace BackpackOverhaul.BackpackBase.HarmonyPatches
         {
             if (__instance.Inventory.FirstNonEmptySlot?.Itemstack?.Item is ItemBackpackBase backpack)
              {
-                backpack.beGroundStorage = __instance;
-                if (backpack.dirty | !backpack.dirty) (__instance.Api as ICoreAPI)!.ObjectCache.Remove("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString());
+                backpack.RefreshShape(__instance.Inventory.FirstNonEmptySlot?.Itemstack!);
+                if (backpack.dirty) (__instance.Api as ICoreAPI)!.ObjectCache.Remove("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString());
                 bool tryed = (__instance.Api as ICoreClientAPI)!.ObjectCache.TryGetValue("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString(), out var _mesh);
                 var mesh = _mesh as MeshData;
                 if (!tryed & backpack.texSource != null)
