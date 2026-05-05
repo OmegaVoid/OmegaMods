@@ -16,6 +16,6 @@
         side: false,
         top: false
     },
-    class: "thaumaturgy:BlockPedestal",
-    entityClass: "thaumaturgy:BlockEntityPedestal"
+    class: "thaumaturgy:Pedestal",
+    entityClass: "thaumaturgy:Pedestal"
 }

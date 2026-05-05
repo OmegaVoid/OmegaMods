@@ -24,8 +24,8 @@
   sideopaque: {
     all: false
   },
-  class: "thaumaturgy:BlockInfusionMatrix",
-  entityClass: "thaumaturgy:BlockEntityInfusionMatrix",
+  class: "thaumaturgy:InfusionMatrix",
+  entityClass: "thaumaturgy:InfusionMatrix",
   entityBehaviors: [{ name: "Animatable" }],
   lightAbsorption: 0
 }

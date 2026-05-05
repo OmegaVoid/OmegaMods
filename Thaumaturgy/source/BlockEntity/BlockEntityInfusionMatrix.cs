@@ -1,3 +1,4 @@
+using Thaumaturgy.BlockBehaviour;
 using Thaumaturgy.Renderer;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -54,7 +55,8 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
 
         renderer.Initialize();
 
-        CApi!.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "infusion_matrix");
+        CApi!.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "infusion_matrix.opaque");
+        // CApi!.Event.RegisterRenderer(renderer, EnumRenderStage.OIT, "infusion_matrix.oit");
 
         GenMesh();
     }
@@ -143,13 +145,18 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
     // }
 
 
-    public static bool IsBlockAffecting(Block? block)
+    public static bool IsBlockAffecting(Block? block, out float? amount)
     {
+        amount = 0;
+        if (!IsBlockAffecting(block))
+            return false;
         if (block == null)
             return false;
-
+        var stabiliser = block.GetBehavior<BlockBehaviorInfusionStabiliser>();
+        amount = stabiliser.Stability;
         return true;
     }
+    public static bool IsBlockAffecting(Block? block) => block != null && !block.HasBlockBehavior<BlockBehaviorInfusionStabiliser>();
 
     public void CalculateSymmetry()
     {
@@ -183,6 +190,7 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
         foreach (var pedestal in Pedestals)
         {
             var opposite = Pos + (Pos - pedestal.Pos);
+            opposite.Y = pedestal.Pos.Y;
             var items = false;
             Symmetry += 2;
             if (!pedestal.Slot.Empty)
@@ -194,7 +202,7 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
             var oppositeBlock = Api.World.BlockAccessor.GetBlockEntity<BlockEntityPedestal>(opposite);
             if (oppositeBlock is null) continue;
             Symmetry -= 2;
-            if (!pedestal.Slot.Empty && items) --Symmetry;
+            if (!oppositeBlock.Slot.Empty && items) --Symmetry;
         }
 
         var sym = 0f;
@@ -202,17 +210,26 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
         foreach (var blockPos in stuff)
         {
             var opposite = Pos + (Pos - blockPos);
-            if (IsBlockAffecting(Api.World.BlockAccessor.GetBlock(blockPos)))
-                sym += 0.1f;
-            if (IsBlockAffecting(Api.World.BlockAccessor.GetBlock(opposite)))
-                sym -= 0.2f;
+            var block = Api.World.BlockAccessor.GetBlock(blockPos);
+            if (IsBlockAffecting(block))
+            {
+                var stabiliser = block.GetBehavior<BlockBehaviorInfusionStabiliser>();
+                sym += 0.1f * (stabiliser?.Stability ?? 0);
+            }
+            var oppositeBlock = Api.World.BlockAccessor.GetBlock(opposite);
+            if (!IsBlockAffecting(oppositeBlock)) continue;
+            {
+                var stabiliser = oppositeBlock.GetBehavior<BlockBehaviorInfusionStabiliser>();
+                sym -= 0.2f * (stabiliser?.Stability ?? 0);
+            }
+
         }
 
         Symmetry += sym;
 
         if (Math.Abs(prevSym - Symmetry) > 0.001f)
         {
-            Api.Logger.Chat("Instability {0}", Instability);
+            SApi?.BroadcastMessageToAllGroups($"Instability {Instability}", EnumChatType.Notification);
         }
     }
 

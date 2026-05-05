@@ -10,5 +10,5 @@
         place: "game:block/stone",
         break: "game:block/stone"
     },
-    class: "thaumaturgy:BlockTrampoline"
+    class: "thaumaturgy:Trampoline"
 }

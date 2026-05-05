@@ -61,4 +61,7 @@
         <PackageReference Include="OmegaVoid.VintageStory.Sdk.Tasks" Version="0.3.1-alpha0038" />
 
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="source\CollectibleBehavior\" />
+    </ItemGroup>
 </Project>
