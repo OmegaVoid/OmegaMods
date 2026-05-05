@@ -5,11 +5,14 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using BackpackOverhaul.BackpackBase;
 using InsanityLib;
+using InsanityLib.Extensions;
 using InsanityLib.Generators.Attributes;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
 namespace BackpackOverhaul.BackpackSystem
@@ -35,9 +38,8 @@ namespace BackpackOverhaul.BackpackSystem
             {
                 string[] posStr = slot.Inventory.InventoryID.Split("-")[3].Split(",");
                 BlockPos bePos = new BlockPos(int.Parse(posStr[0]), int.Parse(posStr[1]), int.Parse(posStr[2]));
-                //(collObj as ItemBackpackBase)?.RefreshShape(bagstack);
                 if ((collObj as ItemBackpackBase)!.api.World.BlockAccessor.GetBlockEntity(bePos) is BlockEntityGroundStorage beGroundStorage)
-                {
+                {   
                     beGroundStorage.MarkDirty(true);
                 }
             }

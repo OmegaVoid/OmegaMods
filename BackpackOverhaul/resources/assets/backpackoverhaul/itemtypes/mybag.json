@@ -34,7 +34,7 @@
 	},
 	attributes: {
 		backpack: {
-			quantitySlots: 4,
+			quantitySlots: 9,
 			storageTags: [ "backpack-attachment" ],
 			slotBgColor: "#f73434"
 		},
