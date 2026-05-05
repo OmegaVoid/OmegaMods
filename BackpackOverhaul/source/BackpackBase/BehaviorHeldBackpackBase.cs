@@ -31,7 +31,7 @@ namespace BackpackOverhaul.BackpackSystem
         {
             base.Store(bagstack, slot);
             slot.Inventory.MarkSlotDirty(slot.BagIndex);
-            if (slot.Inventory is InventoryBase)
+            if (slot.Inventory.GetType() == typeof(InventoryGeneric))
             {
                 string[] posStr = slot.Inventory.InventoryID.Split("-")[3].Split(",");
                 BlockPos bePos = new BlockPos(int.Parse(posStr[0]), int.Parse(posStr[1]), int.Parse(posStr[2]));
