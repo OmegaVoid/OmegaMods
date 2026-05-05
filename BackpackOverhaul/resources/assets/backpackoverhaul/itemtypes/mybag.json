@@ -2,7 +2,7 @@
 	code: "mybag",
 	class: "backpackoverhaul:BackpackBase",
 	maxstacksize: 1,
-	shape: { base: "item/mybag" },
+	shape: { base: "item/backpack-normal" },
 	behaviors: [
 		{ name: "GroundStorable", properties: { layout: "SingleCenter", collisionBox: { x1: 0.25, y1: 0, z1: 0.25, x2: 0.75, y2: 0.375, z2: 0.75 }}},
 		{ name: "backpackoverhaul:HeldBackpackBase"},
@@ -40,6 +40,6 @@
 		},
 		attachableToEntity: {
 			categoryCode: "backpack",
-			attachedShape: { base: "item/mybag-attached" }
+			attachedShape: { base: "item/backpack-normal-attached" }
 	}
 }}
