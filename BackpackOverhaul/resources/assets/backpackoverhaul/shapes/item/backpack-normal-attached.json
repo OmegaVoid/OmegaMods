@@ -1,0 +1,134 @@
+{
+	"editor": {
+		"backDropShape": "entity/humanoid/seraph",
+		"allAngles": true,
+		"singleTexture": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+		"straps": [16, 16],
+		"leather": [16, 16]
+	},
+	"textures": {
+		"straps": "item/bag/backpack/straps",
+		"leather": "item/bag/backpack/leather"
+	},
+	"elements": [
+		{
+			"name": "backpack",
+			"from": [16, -4.7, 11.3],
+			"to": [16, -4.7, 11.3],
+			"rotationOrigin": [16, -4.7, 11.3],
+			"rotationX": -90,
+			"rotationY": 82,
+			"rotationZ": 90,
+			"children": [
+				{
+					"name": "bone4",
+					"from": [0, -2.3, -7.3],
+					"to": [0, -2.3, -7.3],
+					"rotationOrigin": [0, -2.3, -7.3],
+					"children": [
+						{
+							"name": "bone",
+							"from": [8, 0, 8],
+							"to": [8, 0, 8],
+							"rotationOrigin": [8, 0, 8],
+							"children": [
+								{
+									"name": "backpack4",
+									"from": [0, 0, 0],
+									"to": [0, 0, 0],
+									"rotationOrigin": [0, 0, 0],
+									"children": []
+								},
+								{
+									"name": "backpack2",
+									"from": [-9, 0, 0],
+									"to": [-9, 0, 0],
+									"rotationOrigin": [-9, 0, 0],
+									"children": []
+								},
+								{
+									"name": "backpack3",
+									"from": [-18, 0, 0],
+									"to": [-18, 0, 0],
+									"rotationOrigin": [-18, 0, 0],
+									"children": []
+								}
+							]
+						},
+						{
+							"name": "bone2",
+							"from": [8, 11, 8],
+							"to": [8, 11, 8],
+							"rotationOrigin": [8, 11, 8],
+							"children": [
+								{
+									"name": "backpack5",
+									"from": [0, 0, 0],
+									"to": [0, 0, 0],
+									"rotationOrigin": [0, 0, 0],
+									"children": []
+								},
+								{
+									"name": "backpack6",
+									"from": [-9, 0, 0],
+									"to": [-9, 0, 0],
+									"rotationOrigin": [-9, 0, 0],
+									"children": []
+								},
+								{
+									"name": "backpack7",
+									"from": [-18, 0, 0],
+									"to": [-18, 0, 0],
+									"rotationOrigin": [-18, 0, 0],
+									"children": []
+								}
+							]
+						},
+						{
+							"name": "bone3",
+							"from": [8, 21, 8],
+							"to": [8, 21, 8],
+							"rotationOrigin": [8, 21, 8],
+							"children": [
+								{
+									"name": "backpack8",
+									"from": [0, 0, 0],
+									"to": [0, 0, 0],
+									"rotationOrigin": [0, 0, 0],
+									"children": []
+								},
+								{
+									"name": "backpack9",
+									"from": [-9, 0, 0],
+									"to": [-9, 0, 0],
+									"rotationOrigin": [-9, 0, 0],
+									"children": []
+								},
+								{
+									"name": "backpack10",
+									"from": [-18, 0, 0],
+									"to": [-18, 0, 0],
+									"rotationOrigin": [-18, 0, 0],
+									"children": []
+								}
+							]
+						},
+						{
+							"name": "cube",
+							"from": [-13, 0, 5],
+							"to": [12, 31, 6],
+							"rotationOrigin": [0, 0, 6],
+							"faces": {}
+						}
+					]
+				}
+			],
+			"stepParentName": "UpperTorso"
+		}
+	],
+	"animations": []
+}
