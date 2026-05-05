@@ -20,8 +20,8 @@
 			"from": [16, -4.7, 11.3],
 			"to": [16, -4.7, 11.3],
 			"rotationOrigin": [16, -4.7, 11.3],
-			"rotationX": -90,
-			"rotationY": 82,
+			"rotationX": 90,
+			"rotationY": -82,
 			"rotationZ": 90,
 			"children": [
 				{
