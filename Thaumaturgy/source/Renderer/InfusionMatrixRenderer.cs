@@ -59,6 +59,7 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
         _blockEntityInfusionMatrix = blockEntityInfusionMatrix;
         
         _tex = new LoadedTexture(coreClientApi);
+        _tex2 = new LoadedTexture(coreClientApi);
 
         var loc = new AssetLocation("thaumaturgy", "block/custom/infuser"); 
         var loc2 = new AssetLocation("thaumaturgy", "block/custom/infuser_rune"); 
@@ -116,6 +117,7 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
         prog.Use();
         prog.NormalShaded = 0;
         prog.SsaoAttn = 1;
+        
         // SetupShader(prog);
         prog.ViewMatrix = render.CameraMatrixOriginf;
         prog.ProjectionMatrix = render.CurrentProjectionMatrix;
