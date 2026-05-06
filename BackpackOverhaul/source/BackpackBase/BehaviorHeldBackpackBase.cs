@@ -1,25 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Text;
-using BackpackOverhaul.BackpackBase;
-using InsanityLib;
-using InsanityLib.Extensions;
-using InsanityLib.Generators.Attributes;
-using Vintagestory.API.Client;
-using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
+﻿using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
-namespace BackpackOverhaul.BackpackSystem
+namespace BackpackOverhaul.BackpackBase
 {
-    public class CollectibleBehaviorHeldBackpackBase : CollectibleBehaviorHeldBag, IHeldBag, IAttachedListener
+    public class CollectibleBehaviorHeldBackpackBase(CollectibleObject collObj) : CollectibleBehaviorHeldBag(collObj), IHeldBag
     {
-        public CollectibleBehaviorHeldBackpackBase(CollectibleObject collObj) : base(collObj) { }
         public override TagSet GetStorageTags(ItemStack bagStack)
         {
             (bagStack.Item as ItemBackpackBase)?.RefreshShape(bagStack);
@@ -34,20 +21,17 @@ namespace BackpackOverhaul.BackpackSystem
         {
             base.Store(bagstack, slot);
             slot.Inventory.MarkSlotDirty(slot.BagIndex);
-            if (slot.Inventory.GetType() == typeof(InventoryGeneric))
-            {
-                string[] posStr = slot.Inventory.InventoryID.Split("-")[3].Split(",");
-                BlockPos bePos = new BlockPos(int.Parse(posStr[0]), int.Parse(posStr[1]), int.Parse(posStr[2]));
-                if ((collObj as ItemBackpackBase)!.Api.World.BlockAccessor.GetBlockEntity(bePos) is BlockEntityGroundStorage beGroundStorage)
-                {   
-                    beGroundStorage.MarkDirty(true);
-                }
+            if (slot.Inventory.GetType() != typeof(InventoryGeneric)) return;
+            string[] posStr = slot.Inventory.InventoryID.Split("-")[3].Split(",");
+            BlockPos bePos = new BlockPos(int.Parse(posStr[0]), int.Parse(posStr[1]), int.Parse(posStr[2]));
+            if ((collObj as ItemBackpackBase)!.Api.World.BlockAccessor.GetBlockEntity(bePos) is BlockEntityGroundStorage beGroundStorage)
+            {   
+                beGroundStorage.MarkDirty(true);
             }
         }
     }
-    public class CollectibleBehaviorHeldBackpackAttachment: CollectibleBehaviorHeldBag, IHeldBag, IAttachedListener
+    public class CollectibleBehaviorHeldBackpackAttachment(CollectibleObject collObj) : CollectibleBehaviorHeldBag(collObj)
     {
-        public CollectibleBehaviorHeldBackpackAttachment(CollectibleObject collObj) : base(collObj) { }
         public override TagSet GetStorageTags(ItemStack bagStack)
         {
             return bagStack.ItemAttributes["backpack"]["storageTags"].AsObject<TagSet>();

@@ -1,5 +1,4 @@
-﻿using BackpackOverhaul.BackpackSystem;
-using Vintagestory.API.Client;
+﻿using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.GameContent;
@@ -9,7 +8,7 @@ namespace BackpackOverhaul.BackpackBase
     public class ItemBackpackBase : Item, IWearableShapeSupplier
     {
         public Shape? Combshape { get; private set; }
-        public  ICoreAPI Api => base.api;
+        public  ICoreAPI Api => api;
         private Shape? _attachedShape;
         private string? _attachedShapePath;
         private string? _baseShapePath;

@@ -1,17 +1,14 @@
 ﻿using HarmonyLib;
-using System.Diagnostics;
-using System.Security.AccessControl;
 using Vintagestory.API.Client;
-using Vintagestory.API.Common;
-using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
 namespace BackpackOverhaul.BackpackBase.HarmonyPatches
 {
 
     [HarmonyPatch(typeof(BlockEntityGroundStorage), "OnTesselation")]
-    public static class BERenderingPatche
+    public static class BeRenderingPatches
     {
+        // ReSharper disable once InconsistentNaming
         public static bool Prefix(BlockEntityGroundStorage __instance, ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
             if (__instance.Inventory.FirstNonEmptySlot?.Itemstack?.Item is ItemBackpackBase backpack)
