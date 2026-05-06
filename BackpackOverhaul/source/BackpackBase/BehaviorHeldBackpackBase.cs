@@ -38,7 +38,7 @@ namespace BackpackOverhaul.BackpackSystem
             {
                 string[] posStr = slot.Inventory.InventoryID.Split("-")[3].Split(",");
                 BlockPos bePos = new BlockPos(int.Parse(posStr[0]), int.Parse(posStr[1]), int.Parse(posStr[2]));
-                if ((collObj as ItemBackpackBase)!.api.World.BlockAccessor.GetBlockEntity(bePos) is BlockEntityGroundStorage beGroundStorage)
+                if ((collObj as ItemBackpackBase)!.Api.World.BlockAccessor.GetBlockEntity(bePos) is BlockEntityGroundStorage beGroundStorage)
                 {   
                     beGroundStorage.MarkDirty(true);
                 }
