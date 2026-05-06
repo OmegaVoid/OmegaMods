@@ -11,20 +11,18 @@ namespace BackpackOverhaul.BackpackBase.HarmonyPatches
         // ReSharper disable once InconsistentNaming
         public static bool Prefix(BlockEntityGroundStorage __instance, ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            if (__instance.Inventory.FirstNonEmptySlot?.Itemstack?.Item is ItemBackpackBase backpack)
+            if (__instance.Inventory.FirstNonEmptySlot?.Itemstack?.Item is not ItemBackpackBase backpack) return false;
+            backpack.RefreshShape(__instance.Inventory.FirstNonEmptySlot?.Itemstack!);
+            //bool tryed = (__instance.Api as ICoreClientAPI)!.ObjectCache.TryGetValue("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString(), out var _mesh);
+            //var mesh = _mesh as MeshData;
+            MeshData? mesh = null;
+            //if (!tryed & backpack.texSource != null)
+            if (backpack.TexSource != null)
             {
-                backpack.RefreshShape(__instance.Inventory.FirstNonEmptySlot?.Itemstack!);
-                //bool tryed = (__instance.Api as ICoreClientAPI)!.ObjectCache.TryGetValue("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString(), out var _mesh);
-                //var mesh = _mesh as MeshData;
-                MeshData? mesh = null;
-                //if (!tryed & backpack.texSource != null)
-                if (backpack.TexSource != null)
-                {
-                    tesselator.TesselateShape("mylog", backpack.Combshape, out mesh, backpack.TexSource);
-                    //(__instance.Api as ICoreClientAPI)!.ObjectCache.Add("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString(), mesh);
-                }
-                if (mesh != null) mesher.AddMeshData(mesh);
+                tesselator.TesselateShape("mylog", backpack.Combshape, out mesh, backpack.TexSource);
+                //(__instance.Api as ICoreClientAPI)!.ObjectCache.Add("groundstorage-mesh-backpackbase-" + __instance.Pos.ToString(), mesh);
             }
+            if (mesh != null) mesher.AddMeshData(mesh);
             return false;
         }
     }

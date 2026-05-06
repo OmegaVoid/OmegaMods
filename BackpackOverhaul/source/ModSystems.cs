@@ -1,13 +1,14 @@
 ﻿using InsanityLib.Generators.Attributes;
+using JetBrains.Annotations;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using VSImGui;
 [assembly: AutoRegistryName(RemovePrefix = ["CollectibleBehavior", "Block", "EntityBehavior", "Entity", "BlockEntity", "BlockEntiityBehavior", "BlockBehavior", "Item"])]
 namespace BackpackOverhaul
 {
-    public partial class BackpackOverhaulModSystem : ModSystem
+    public partial class BackpackOverhaulModSystem
     {
-        private ImGuiModSystem _modSystem = null!;
+        [UsedImplicitly] private ImGuiModSystem _modSystem = null!;
         public readonly BackpackOverhaulConfig Settings = new();
         public override void StartPre(ICoreAPI api)
         {
