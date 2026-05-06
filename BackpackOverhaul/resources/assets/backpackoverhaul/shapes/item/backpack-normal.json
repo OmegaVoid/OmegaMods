@@ -22,9 +22,9 @@
 			"children": [
 				{
 					"name": "cube",
-					"from": [-13, 0, 5],
-					"to": [12, 31, 6],
-					"rotationOrigin": [0, 0, 6],
+					"from": [-13, 0, 0],
+					"to": [12, 31, 1],
+					"rotationOrigin": [0, 0, 1],
 					"faces": {
 						"north": {"texture": "#leather", "uv": [0, 0, 16, 16], "autoUv": false, "snapUv": false},
 						"east": {"texture": "#leather", "uv": [1, 0, 2, 16], "autoUv": false, "snapUv": false},
@@ -36,73 +36,73 @@
 				},
 				{
 					"name": "backpack1",
-					"from": [8, 0, 8],
-					"to": [8, 0, 8],
-					"rotationOrigin": [8, 0, 8],
+					"from": [8, 0, 6],
+					"to": [8, 0, 6],
+					"rotationOrigin": [8, 0, 6],
 					"rotationY": 90,
 					"children": []
 				},
 				{
 					"name": "backpack2",
-					"from": [-1, 0, 8],
-					"to": [-1, 0, 8],
-					"rotationOrigin": [-1, 0, 8],
+					"from": [-1, 0, 6],
+					"to": [-1, 0, 6],
+					"rotationOrigin": [-1, 0, 6],
 					"rotationY": 90,
 					"children": []
 				},
 				{
 					"name": "backpack3",
-					"from": [-10, 0, 8],
-					"to": [-10, 0, 8],
-					"rotationOrigin": [-10, 0, 8],
+					"from": [-10, 0, 6],
+					"to": [-10, 0, 6],
+					"rotationOrigin": [-10, 0, 6],
 					"rotationY": 90,
 					"children": []
 				},
 				{
 					"name": "backpack4",
-					"from": [8, 11, 8],
-					"to": [8, 11, 8],
-					"rotationOrigin": [8, 11, 8],
+					"from": [8, 11, 6],
+					"to": [8, 11, 6],
+					"rotationOrigin": [8, 11, 6],
 					"rotationY": 90,
 					"children": []
 				},
 				{
 					"name": "backpack5",
-					"from": [-1, 11, 8],
-					"to": [-1, 11, 8],
-					"rotationOrigin": [-1, 11, 8],
+					"from": [-1, 11, 6],
+					"to": [-1, 11, 6],
+					"rotationOrigin": [-1, 11, 6],
 					"rotationY": 90,
 					"children": []
 				},
 				{
 					"name": "backpack6",
-					"from": [-10, 11, 8],
-					"to": [-10, 11, 8],
-					"rotationOrigin": [-10, 11, 8],
+					"from": [-10, 11, 6],
+					"to": [-10, 11, 6],
+					"rotationOrigin": [-10, 11, 6],
 					"rotationY": 90,
 					"children": []
 				},
 				{
 					"name": "backpack7",
-					"from": [8, 21, 8],
-					"to": [8, 21, 8],
-					"rotationOrigin": [8, 21, 8],
+					"from": [8, 21, 6],
+					"to": [8, 21, 6],
+					"rotationOrigin": [8, 21, 6],
 					"rotationY": 90,
 					"children": []
 				},
 				{
 					"name": "backpack8",
-					"from": [-1, 21, 8],
-					"to": [-1, 21, 8],
-					"rotationOrigin": [-1, 21, 8],
+					"from": [-1, 21, 6],
+					"to": [-1, 21, 6],
+					"rotationOrigin": [-1, 21, 6],
 					"rotationY": 90,
 					"children": []
 				},
 				{
 					"name": "backpack9",
-					"from": [-10, 21, 8],
-					"to": [-10, 21, 8],
-					"rotationOrigin": [-10, 21, 8],
+					"from": [-10, 21, 6],
+					"to": [-10, 21, 6],
+					"rotationOrigin": [-10, 21, 6],
 					"rotationY": 90,
 					"children": []
 				}
