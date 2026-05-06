@@ -12,6 +12,8 @@
 		"leather": [16,16]
 	},
 	"textures": {
+		"straps": "game:item/bag/backpack/straps",
+		"leather": "game:item/bag/backpack/leather"
 	},
 	"elements": [
 		{
