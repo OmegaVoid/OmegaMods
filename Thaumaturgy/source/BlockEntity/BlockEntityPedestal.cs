@@ -9,7 +9,7 @@ using Vintagestory.GameContent;
 
 namespace Thaumaturgy.BlockEntity;
 
-public class BlockEntityPedestal : BlockEntityDisplay
+public class BlockEntityPedestal : BlockEntityDisplay, IPointOfInterest
 {
     public float Ticks { get; set; }
 
@@ -35,6 +35,8 @@ public class BlockEntityPedestal : BlockEntityDisplay
 
         // RegisterGameTickListener(OnGameTick, 50);
         api.Logger.Event("Block Pedestal Block Placed!");
+        if (api is ICoreServerAPI) api.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
+
         if (api.Side != EnumAppSide.Client)
             return;
     }
@@ -148,4 +150,7 @@ public class BlockEntityPedestal : BlockEntityDisplay
         InventoryGeneric.ToTreeAttributes(treeAttribute);
         tree["inventory"] = treeAttribute;
     }
+
+    public Vec3d Position =>  Pos.ToVec3d().Add(0.5, 0.5, 0.5);
+    public string Type => "infusion-pedestal";
 }

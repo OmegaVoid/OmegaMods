@@ -1,15 +1,26 @@
 {
   code: "amber_block",
-  blockmaterial: "stone",
   creativeinventory: { thaumaturgy: [ "*" ] },
   textures: {
-
-    top: { base: "block/amberblock_top" },
-    all: { base: "block/amberblock" },
+    all: { base: "block/custom/amber" },
+  },
+  sideopaque: {
+    all: false
   },
   sounds: {
     place: "game:block/stone",
     break: "game:block/stone"
   },
+  attributes: {
+    canChisel: true,
+  },
+  blockmaterial: "Amber",
+  faceCullMode: "MergeMaterial",
+  lightAbsorption: 0,
+  vertexFlags: {
+    zOffset: 2,
+    shiny: true
+  },
+  renderPass: "Transparent",
   class: "thaumaturgy:Trampoline"
 }

@@ -1,4 +1,10 @@
 {
-	"block-trampoline": "Trampoline"
-	
+  "block-trampoline": "Trampoline",
+  "block-amber_block": "Amber Block",
+  "block-amber_brick": "Amber Bricks",
+  "block-arcane_brick": "Arcane Bricks",
+  "block-arcane_stone": "Arcane Stone",
+  "block-infusion_matrix": "Infusion Matrix",
+  "block-arcane_pedestal": "Arcane Pedestal",
+  "game:tabname-thaumaturgy": "Thaumaturgy"
 }

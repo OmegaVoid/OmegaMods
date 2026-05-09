@@ -1,14 +1,32 @@
 {
-    code: "amber_brick",
-    blockmaterial: "stone",
-    creativeinventory: { thaumaturgy: [ "*" ] },
-    textures: {
-        
-        all: { base: "block/amberbrick" },
+  code: "amber_brick",
+  creativeinventory: {
+    thaumaturgy: [
+      "*"
+    ]
+  },
+  textures: {
+    all: {
+      base: "block/custom/amber_bricks"
     },
-    sounds: {
-        place: "game:block/stone",
-        break: "game:block/stone"
-    },
-    class: "thaumaturgy:Trampoline"
+  },
+  sideopaque: {
+    all: false
+  },
+  sounds: {
+    place: "game:block/stone",
+    break: "game:block/stone"
+  },
+  attributes: {
+    canChisel: true,
+  },
+  blockmaterial: "Amber",
+  faceCullMode: "MergeMaterial",
+  lightAbsorption: 0,
+  vertexFlags: {
+    zOffset: 2,
+    shiny: true
+  },
+  renderPass: "Transparent",
+  class: "thaumaturgy:Trampoline"
 }

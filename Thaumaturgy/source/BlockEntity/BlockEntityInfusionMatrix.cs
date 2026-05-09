@@ -1,7 +1,11 @@
+using AttributeRenderingLibrary;
+using HarmonyLib;
 using Thaumaturgy.BlockBehaviour;
 using Thaumaturgy.Renderer;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.Client.NoObf;
@@ -9,8 +13,10 @@ using Vintagestory.GameContent;
 
 namespace Thaumaturgy.BlockEntity;
 
-public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
+public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity, IPointOfInterest
 {
+    
+    
     private BlockEntityAnimationUtil animUtil => GetBehavior<BEBehaviorAnimatable>().animUtil;
 
     public bool Active { get; set; } = true;
@@ -48,14 +54,17 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
         base.Initialize(api);
         RegisterGameTickListener(OnGameTick, 1000 / 20);
         api.Logger.Event("Block InfusionMatrix Block Placed!");
+        
+        if (api is ICoreServerAPI) api.ModLoader.GetModSystem<POIRegistry>().AddPOI(this);
         if (api.Side != EnumAppSide.Client)
             return;
 
         renderer = new InfusionMatrixRenderer((api as ICoreClientAPI)!, this);
 
         renderer.Initialize();
-
         CApi!.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "infusion_matrix.opaque");
+        CApi!.Event.RegisterRenderer(renderer, EnumRenderStage.ShadowFar, "infusion_matrix.ShadowFar");
+        CApi!.Event.RegisterRenderer(renderer, EnumRenderStage.ShadowNear, "infusion_matrix.ShadowNear");
         // CApi!.Event.RegisterRenderer(renderer, EnumRenderStage.OIT, "infusion_matrix.oit");
 
         GenMesh();
@@ -80,8 +89,15 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
 
         // this.Api.World.BlockAccessor.MarkBlockDirty(this.Pos, new Action(this.OnRetesselated));
     }
+    
+    public bool OnInteract(IPlayer byPlayer, BlockSelection blockSel)
+    {
+        Api.World.Logger.Audit("{0} Started Infusion at {1}.", byPlayer.PlayerName, Pos);
+        return true;
+    }
 
 
+    
     public void Activate()
     {
         if (Api == null) return;
@@ -97,53 +113,6 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
         return true;
     }
 
-    //
-    // protected MeshData quernTopMesh
-    // {
-    //     get
-    //     {
-    //         object quernTopMesh;
-    //         this.Api.ObjectCache.TryGetValue("querntopmesh-" + this.Material, out quernTopMesh);
-    //         return (MeshData) quernTopMesh;
-    //     }
-    //     set => this.Api.ObjectCache["querntopmesh-" + this.Material] = (object) value;
-    // }
-    // public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
-    // {
-    //     if (Block == null)
-    //         return false;
-    //
-    //     for (var a = 0; a < 2; a++)
-    //     for (var b = 0; b < 2; b++)
-    //     for (var c = 0; c < 2; c++)
-    //     {
-    //         var b1 = 0.0f;
-    //         var b2 = 0.0f;
-    //         var b3 = 0.0f;
-    //         if (Active)
-    //         {
-    //             b1 = MathF.Sin((Ticks * 200 + a * 10 * 16) / (15 - Instability / 2)) * 0.01f * Startup * Instability;
-    //             b2 = MathF.Sin((Ticks * 200 + a * 10 * 16) / (14 - Instability / 2)) * 0.01f * Startup * Instability;
-    //             b3 = MathF.Sin((Ticks * 200 + a * 10 * 16) / (13 - Instability / 2)) * 0.01f * Startup * Instability;
-    //         }
-    //
-    //         var aa = a == 0 ? -1 : 1;
-    //         var bb = b == 0 ? -1 : 1;
-    //         var cc = c == 0 ? -1 : 1;
-    //         var obj = InfusionMatrixMesh?.Clone()
-    //             .Scale(0.45f, 0.45f, 0.45f)
-    //             .Rotate(a == 1 ? MathF.PI / 2 : 0, b == 1 ? MathF.PI / 2 : 0, c == 1 ? MathF.PI / 2 : 0)
-    //             .Translate(b1 + aa * 0.25f, b2 + bb * 0.25f, b3 + cc * 0.25f)
-    //             .Rotate(35 * MathF.PI / 180f, Ticks % 360 * Startup, 45 * MathF.PI / 180f);
-    //         mesher.AddMeshData(obj);
-    //     }
-    //
-    //     // mesher.AddMeshData(this.infusionMatrixMesh);
-    //     // if (this.quantityPlayersGrinding == 0 && !this.automated)
-    //     // mesher.AddMeshData(this.quernTopMesh.Clone().Rotate(0.0f, this.renderer.AngleRad, 0.0f).Translate(0.0f, 11f / 16f, 0.0f));
-    //     return true;
-    // }
-
 
     public static bool IsBlockAffecting(Block? block, out float? amount)
     {
@@ -158,35 +127,79 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
     }
     public static bool IsBlockAffecting(Block? block) => block != null && !block.HasBlockBehavior<BlockBehaviorInfusionStabiliser>();
 
+    public static Cuboidi BaseSymmetryArea => new(new Vec3i(-12, -10, -12), new Vec3i(12, 5, 12));
+    public static Cuboidi BasePedestalArea => new(new Vec3i(-8, -10, -8), new Vec3i(8, 0, 8));
+    public Cuboidi SymmetryArea => BaseSymmetryArea.Clone().Translate(Pos);
+    public Cuboidi PedestalArea => BasePedestalArea.Clone().Translate(Pos);
+    public BlockPos CenterPedestalPos => Pos.DownCopy(-2);
+    
+    public BlockEntityPedestal? CenterPedestal { get; private set; }
+    
+    
+    
+    
     public void CalculateSymmetry()
     {
+        var area = SymmetryArea;
+        var acc = Api.World.GetBlockAccessorPrefetch(false, false);
+        acc.PrefetchBlocks(area.Start.AsBlockPos, area.End.AsBlockPos);
+        CenterPedestal = acc.GetBlockEntity<BlockEntityPedestal>(CenterPedestalPos);
         var prevSym = Symmetry;
         var stuff = new List<BlockPos>();
         Pedestals.Clear();
-        for (var xx = -12; xx <= 12; ++xx)
-        for (var zz = -12; zz <= 12; ++zz)
-        for (var yy = -5; yy <= 10; ++yy)
+        for (var xx = area.MinX; xx <= area.MaxX; ++xx)
+        for (var zz = area.MinZ; zz <= area.MaxZ; ++zz)
+        for (var yy = area.MinY; yy <= area.MaxY; ++yy)
         {
-            if (xx == 0 && zz == 0) continue;
+            if (xx == area.CenterX && zz == area.CenterZ) continue;
+            var pos = new BlockPos(xx, yy, zz);
+            if (!PedestalArea.Contains(xx,yy, zz)) continue;
 
-            var pos = Pos + new BlockPos(xx, -yy, zz);
-
-            if (yy <= 0 || Math.Abs(xx) > 8 || Math.Abs(zz) > 8) continue;
-
-            var be = Api.World.BlockAccessor.GetBlockEntity<BlockEntityPedestal>(pos);
-
-            if (be is not null)
+            if (acc.GetBlockEntity<BlockEntityPedestal>(pos) is { } be)
             {
                 Pedestals.Add(be);
                 break;
             }
-
-            var block = Api.World.BlockAccessor.GetBlock(pos);
-
-            if (IsBlockAffecting(block)) stuff.Add(pos);
+            
+            if (IsBlockAffecting(acc.GetBlock(pos))) stuff.Add(pos);
         }
 
         Symmetry = 0;
+        SymmetryPedestalChecker(acc);
+        SymmetryBlockChecker(stuff, acc);
+
+        if (Math.Abs(prevSym - Symmetry) > 0.001f)
+        {
+            SApi?.BroadcastMessageToAllGroups($"Instability {Instability}", EnumChatType.Notification);
+        }
+    }
+
+    private void SymmetryBlockChecker(List<BlockPos> stuff, IBlockAccessorPrefetch acc)
+    {
+        var sym = 0f;
+        foreach (var blockPos in stuff)
+        {
+            var opposite = Pos + (Pos - blockPos);
+            var block = acc.GetBlock(blockPos);
+            if (IsBlockAffecting(block))
+            {
+                var stabiliser = block.GetBehavior<BlockBehaviorInfusionStabiliser>();
+                sym += 0.1f * (stabiliser?.Stability ?? 0);
+            }
+            var oppositeBlock = acc.GetBlock(opposite);
+            if (!IsBlockAffecting(oppositeBlock)) continue;
+            {
+                var stabiliser = oppositeBlock.GetBehavior<BlockBehaviorInfusionStabiliser>();
+                sym -= 0.2f * (stabiliser?.Stability ?? 0);
+            }
+
+        }
+
+        Symmetry += sym;
+    }
+
+    private void SymmetryPedestalChecker(IBlockAccessorPrefetch acc)
+    {
         foreach (var pedestal in Pedestals)
         {
             var opposite = Pos + (Pos - pedestal.Pos);
@@ -199,37 +212,10 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
                 items = true;
             }
 
-            var oppositeBlock = Api.World.BlockAccessor.GetBlockEntity<BlockEntityPedestal>(opposite);
+            var oppositeBlock = acc.GetBlockEntity<BlockEntityPedestal>(opposite);
             if (oppositeBlock is null) continue;
             Symmetry -= 2;
             if (!oppositeBlock.Slot.Empty && items) --Symmetry;
-        }
-
-        var sym = 0f;
-
-        foreach (var blockPos in stuff)
-        {
-            var opposite = Pos + (Pos - blockPos);
-            var block = Api.World.BlockAccessor.GetBlock(blockPos);
-            if (IsBlockAffecting(block))
-            {
-                var stabiliser = block.GetBehavior<BlockBehaviorInfusionStabiliser>();
-                sym += 0.1f * (stabiliser?.Stability ?? 0);
-            }
-            var oppositeBlock = Api.World.BlockAccessor.GetBlock(opposite);
-            if (!IsBlockAffecting(oppositeBlock)) continue;
-            {
-                var stabiliser = oppositeBlock.GetBehavior<BlockBehaviorInfusionStabiliser>();
-                sym -= 0.2f * (stabiliser?.Stability ?? 0);
-            }
-
-        }
-
-        Symmetry += sym;
-
-        if (Math.Abs(prevSym - Symmetry) > 0.001f)
-        {
-            SApi?.BroadcastMessageToAllGroups($"Instability {Instability}", EnumChatType.Notification);
         }
     }
 
@@ -278,4 +264,7 @@ public class BlockEntityInfusionMatrix : Vintagestory.API.Common.BlockEntity
         this.renderer?.Dispose();
         this.renderer = null;
     }
+
+    public Vec3d Position => Pos.ToVec3d().Add(0.5, 0.5, 0.5);
+    public string Type => "infusion-matrix";
 }

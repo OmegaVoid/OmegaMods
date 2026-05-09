@@ -57,17 +57,16 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
     {
         _coreClientApi = coreClientApi;
         _blockEntityInfusionMatrix = blockEntityInfusionMatrix;
-        
+
         _tex = new LoadedTexture(coreClientApi);
         _tex2 = new LoadedTexture(coreClientApi);
 
-        var loc = new AssetLocation("thaumaturgy", "block/custom/infuser"); 
-        var loc2 = new AssetLocation("thaumaturgy", "block/custom/infuser_rune"); 
+        var loc = new AssetLocation("thaumaturgy", "block/custom/infuser");
+        var loc2 = new AssetLocation("thaumaturgy", "block/custom/infuser_rune");
         coreClientApi.Render.GetOrLoadTexture(loc, ref _tex);
         coreClientApi.Render.GetOrLoadTexture(loc2, ref _tex2);
-        
     }
-    
+
     public void SetupShader(IStandardShaderProgram prog)
     {
         var rpi = _coreClientApi.Render;
@@ -90,6 +89,8 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
         prog.NormalShaded = 0;
     }
 
+    private Matrixf shadowMvpMat = new();
+
 
     public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
     {
@@ -101,6 +102,7 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
 
 
         var render = _coreClientApi.Render;
+        var render2 = _coreClientApi.Render;
         var cameraPos = _coreClientApi.World.Player.Entity.CameraPos;
 
         if (!CraftingLightAdded)
@@ -108,28 +110,31 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
             render.AddPointLight(CraftingLight);
             CraftingLightAdded = true;
         }
-        
-        
+
+
         render.GlDisableCullFace();
         // render.GlToggleBlend(true);
-        var prog = render.PreparedStandardShader(Pos.X, Pos.Y, Pos.Z);
-        // var prog = render.StandardShader;
-        prog.Use();
-        prog.NormalShaded = 0;
-        prog.SsaoAttn = 1;
-        
-        // SetupShader(prog);
-        prog.ViewMatrix = render.CameraMatrixOriginf;
-        prog.ProjectionMatrix = render.CurrentProjectionMatrix;
+        IStandardShaderProgram? prog = null;
+        if (stage == EnumRenderStage.Opaque)
+        {
+            prog = render.PreparedStandardShader(Pos.X, Pos.Y, Pos.Z);
+            // var prog = render.StandardShader;
+            prog.Use();
+            prog.NormalShaded = 0;
+            prog.SsaoAttn = 1;
+
+            // SetupShader(prog);
+            prog.ViewMatrix = render.CameraMatrixOriginf;
+            prog.ProjectionMatrix = render.CurrentProjectionMatrix;
+        }
 
 
         var baseMat = ModelMat.Identity()
             .Translate(Pos.X - cameraPos.X, Pos.Y - cameraPos.Y, Pos.Z - cameraPos.Z);
-        prog.ModelMatrix = baseMat.Values;
-            // .Translate(1,1,1)
-            // .RotateDeg(new Vec3f(35f * Startup, 20*RenderTicks % 360 * Startup, 45f * Startup))
-            // .RotateDeg(new Vec3f(0, 20*RenderTicks % 360, 0))
-            ;
+        // .Translate(1,1,1)
+        // .RotateDeg(new Vec3f(35f * Startup, 20*RenderTicks % 360 * Startup, 45f * Startup))
+        // .RotateDeg(new Vec3f(0, 20*RenderTicks % 360, 0))
+        ;
 
 
         if (Active)
@@ -137,7 +142,31 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
             for (var a = 0; a < 2; a++)
             for (var b = 0; b < 2; b++)
             for (var c = 0; c < 2; c++)
-                RenderSubCube(a, b, c, baseMat, prog, render);
+                RenderSubCube(a, b, c, baseMat, mat =>
+                {
+                    if (prog is not null && stage == EnumRenderStage.Opaque)
+                    {
+                        prog.ModelMatrix = mat
+                            .Values;
+                        prog.ExtraGlow = 0;
+                        render.RenderMultiTextureMesh(MeshRef, "tex");
+
+                        if (!Active) return;
+                        prog.ExtraGlow = 1;
+                        prog.RgbaGlowIn = new Vec4f(0.8f, 0.1f, 1f,
+                            (MathF.Sin((RenderTicks + a * 2 + b * 3 + c * 4) / 4f) * .1f + .2f) * Startup);
+
+                        render.RenderMultiTextureMesh(MeshRef, "tex2dOverlay");
+                    }
+                    else
+                    {
+                        shadowMvpMat.Set(render2.CurrentProjectionMatrix).Mul(render2.CurrentModelviewMatrix)
+                            .Mul(mat.Values);
+                        render2.CurrentActiveShader.UniformMatrix("mvpMatrix", shadowMvpMat.Values);
+                        render2.CurrentActiveShader.Uniform("origin", 0.0f, 0.0f, 0.0f);
+                        render.RenderMultiTextureMesh(MeshRef, "tex2d");
+                    }
+                });
         }
         // standardShaderProgram.ModelMatrix = ModelMat.Identity()
         //     .Translate(pos.X - cameraPos.X, pos.Y - cameraPos.Y,
@@ -146,10 +175,10 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
         // prog.ModelMatrix = ModelMat.Identity().Translate(pos.X - cameraPos.X,pos.Y - cameraPos.Y, pos.Z - cameraPos.Z).RotateDeg(new Vec3f(35f*Startup,Ticks%360*Startup,45f*Startup)).Values;
         // render.AddPointLight(CraftingLight);
 
-
-        prog.ViewMatrix = render.CameraMatrixOriginf;
-        prog.ProjectionMatrix = render.CurrentProjectionMatrix;
-
+        if (prog is not null && stage == EnumRenderStage.Opaque)
+        {
+            prog.Stop();
+        }
 
         // RenderHalo(prog, render, baseMat);
 
@@ -157,14 +186,14 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
         // prog.ExtraGodray = 1;
         // prog.NormalShaded = 1;
         // render.RenderMesh(_meshref);
-        prog.Stop();
+
         // if (ShouldRotateManual)
         //     Startup += (float)(deltaTime * 40.0 * (Math.PI / 180.0));
         // if (!ShouldRotateAutomated)
         // return;
     }
 
-    private void RenderSubCube(int a, int b, int c, Matrixf baseMat, IStandardShaderProgram prog, IRenderAPI render)
+    private void RenderSubCube(int a, int b, int c, Matrixf baseMat, Action<Matrixf> rend)
     {
         var instability = Math.Min(6, /*1 + */ Instability * 0.66f * (Math.Min(CraftCount, 50) / 50f));
         var b1 = 0.0f;
@@ -211,18 +240,7 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
 
         mat.ReverseMul(baseMat.Values);
 
-
-        prog.ModelMatrix = mat
-            .Values;
-        prog.ExtraGlow = 0;
-        render.RenderMultiTextureMesh(MeshRef, "tex");
-        
-        if (!Active) return;
-        prog.ExtraGlow = 1;
-        prog.RgbaGlowIn = new Vec4f(0.8f, 0.1f, 1f,
-            (MathF.Sin((RenderTicks + a * 2 + b * 3 + c * 4) / 4f) * .1f + .2f) * Startup);
-        
-        render.RenderMultiTextureMesh(MeshRef, "tex2dOverlay");
+        rend(mat);
     }
 
     private void RenderHalo(IStandardShaderProgram prog, IRenderAPI render, Matrixf baseMat)
@@ -247,6 +265,8 @@ public class InfusionMatrixRenderer : IRenderer, IDisposable
     public void Dispose()
     {
         _coreClientApi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
+        _coreClientApi.Event.UnregisterRenderer(this, EnumRenderStage.ShadowFar);
+        _coreClientApi.Event.UnregisterRenderer(this, EnumRenderStage.ShadowNear);
 
         if (CraftingLightAdded)
         {

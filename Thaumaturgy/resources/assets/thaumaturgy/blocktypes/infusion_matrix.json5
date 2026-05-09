@@ -24,6 +24,10 @@
   sideopaque: {
     all: false
   },
+  faceCullMode: "NeverCull",
+  shapeInventory: {
+    base: "block/matrix"
+  },
   class: "thaumaturgy:InfusionMatrix",
   entityClass: "thaumaturgy:InfusionMatrix",
   entityBehaviors: [{ name: "Animatable" }],
