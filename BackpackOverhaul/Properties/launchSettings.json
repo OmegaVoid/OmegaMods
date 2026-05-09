@@ -3,20 +3,34 @@
     "Client": {
       "commandName": "Executable",
       "executablePath": "dotnet",
-      "commandLineArgs": "\"$(GameDirectory)/Vintagestory.dll\" $(EnterWorldCommand) --tracelog --dataPath \"$(DataFolder)\" --addModPath \"$(AdditionalModsFolder)\" \"$(ReleasesDir)\" \"\"$(ModDepsFolder)\" ",
+      "commandLineArgs": "\"$(GameDirectory)/Vintagestory.dll\" --tracelog --dataPath \"$(DataFolder)\" --addModPath \"$(AdditionalModsFolder)\" \"$(ProjectDir)/bin/Debug/Mods\" \"$(ModDepsFolder)\" $(EnterWorldCommand)",
       "workingDirectory": "$(GameDirectory)",
-      "nativeDebugging": false
+      "hotReloadEnabled": true,
+      "targetProject": "BackpackOverhaul.csproj",
+      "nativeDebugging": true
     },
     "Server": {
       "commandName": "Executable",
       "executablePath": "dotnet",
-      "commandLineArgs": "\"$(GameDirectory)/VintagestoryServer.dll\" $(EnterWorldCommand) --tracelog --dataPath \"$(DataFolder)\" --addModPath \"$(AdditionalModsFolder)\" \"$(ReleasesDir)\" \"\"$(ModDepsFolder)\" ",
+      "commandLineArgs": "\"$(GameDirectory)/VintagestoryServer.dll\" --tracelog --dataPath \"$(DataFolder)\" --addModPath \"$(AdditionalModsFolder)\" \"$(ProjectDir)/bin/Debug/Mods\" \"$(ModDepsFolder)\" $(EnterWorldCommand)",
       "workingDirectory": "$(GameDirectory)"
     },
     "Push": {
       "commandName": "Executable",
       "executablePath": "dotnet",
       "commandLineArgs": "nuget push ../$(PackageId).$(Version).nupkg --api-key $(ApiKey) --source https://api.nuget.org/v3/index.json"
+    },
+    "RenderDoc": {
+      "commandName": "Executable",
+      "executablePath": "renderdoccmd",
+      "workingDirectory": "$(GameDirectory)",
+      "commandLineArgs": "capture --working-dir $(GameDirectory) -w /usr/bin/dotnet \"$(GameDirectory)/Vintagestory.dll\" --tracelog --dataPath \"$(DataFolder)\" --addModPath \"$(AdditionalModsFolder)\" \"$(ProjectDir)/bin/Debug/Mods\" \"$(ModDepsFolder)\" $(EnterWorldCommand)"
+    },
+    "RenderDoc GUI": {
+      "commandName": "Executable",
+      "executablePath": "qrenderdoc",
+      "workingDirectory": "$(GameDirectory)",
+      "commandLineArgs": "--targetcontrol"
     }
   }
 }

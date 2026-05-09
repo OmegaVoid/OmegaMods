@@ -1,4 +1,5 @@
-﻿using Vintagestory.API.Client;
+﻿using PlayerInventoryLib;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.GameContent;
@@ -29,14 +30,20 @@ namespace BackpackOverhaul.BackpackBase
             Shape? shape = _baseShape?.Clone();
             IDictionary<string, CompositeTexture> collectedTextures = this.Textures;
             ITextureAtlasAPI? targetAtlas = (Api as ICoreClientAPI)?.ItemTextureAtlas;
-            ItemStack?[]? stacks = this.GetCollectibleBehavior<CollectibleBehaviorHeldBackpackBase>(false).GetContents(itemStack, Api.World);
-            if (attachedShape != null && targetAtlas != null && stacks != null)
+            List<ItemSlot> slots = [];
+            for (int n = 0; n < 9; n++)
+            {
+                if((targetEntity as EntityPlayer)?.Player.InventoryManager.Inventories.Values.OfType<BackpackInventory>().First().GetSlotByBackpackSlotId("vanilla@self0@" + n, out var slot) == true) slots.Add( slot);
+            }
+            var stacks = slots.Select(slot => slot.Itemstack).ToArray();
+            // ItemStack?[]? stacks = this.GetCollectibleBehavior<CollectibleBehaviorHeldBackpackBase>(false)?.GetContents(itemStack, Api.World);
+            if (attachedShape != null && targetAtlas != null) //&& stacks != null)
                 foreach (ItemStack? stack in stacks)
                 {
                     string childPath = stack?.Item.Attributes["backpack"]["attachedShape"].AsObject<CompositeShape>(null, stack.Item.Code.Domain)?.Base.CopyWithPathPrefixAndAppendixOnce("shapes/", ".json") ?? "";
                     if (Vintagestory.API.Common.Shape.TryGet(Api, childPath) is { } childShape)
                     {
-                        childShape.Elements[0].StepParentName = "backpack" + i.ToString();
+                        childShape.Elements[0].StepParentName = "backpack" + i;
                         attachedShape.StepParentShape(childShape, texturePrefixCode, childPath, _attachedShapePath, Api.World.Logger, (texcode, tloc) => EntityBehaviorContainer.addTexture((Api as ICoreClientAPI), texcode, tloc, collectedTextures, texturePrefixCode, targetAtlas));
                         shape?.StepParentShape(childShape, texturePrefixCode, childPath, _attachedShapePath, Api.World.Logger, (texcode, tloc) => EntityBehaviorContainer.addTexture((Api as ICoreClientAPI), texcode, tloc, collectedTextures, texturePrefixCode, targetAtlas));
                     }
@@ -52,14 +59,14 @@ namespace BackpackOverhaul.BackpackBase
             Shape? shape = _baseShape!.Clone();
             IDictionary<string, CompositeTexture> collectedTextures = this.Textures;
             ITextureAtlasAPI? targetAtlas = (Api as ICoreClientAPI)?.ItemTextureAtlas;
-            ItemStack?[]? stacks = this.GetCollectibleBehavior<CollectibleBehaviorHeldBackpackBase>(false).GetContents(itemStack, Api.World);
+            ItemStack?[]? stacks = this.GetCollectibleBehavior<CollectibleBehaviorHeldBackpackBase>(false)?.GetContents(itemStack, Api.World);
             if (targetAtlas != null && stacks != null)
                 foreach (ItemStack? stack in stacks)
                 {
                     string childPath = stack?.Item.Attributes["backpack"]["attachedShape"].AsObject<CompositeShape>(null, stack.Item.Code.Domain)?.Base.CopyWithPathPrefixAndAppendixOnce("shapes/", ".json") ?? "";
                     if (Vintagestory.API.Common.Shape.TryGet(Api, childPath) is { } childShape)
                     {
-                        childShape.Elements[0].StepParentName = "backpack" + i.ToString();
+                        childShape.Elements[0].StepParentName = "backpack" + i;
                         shape!.StepParentShape(childShape, texturePrefixCode, childPath, _attachedShapePath, Api.World.Logger, (texcode, tloc) => EntityBehaviorContainer.addTexture((Api as ICoreClientAPI), texcode, tloc, collectedTextures, texturePrefixCode, targetAtlas));
                     }
                     i += 1;

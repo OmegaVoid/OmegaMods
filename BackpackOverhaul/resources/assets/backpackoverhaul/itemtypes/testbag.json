@@ -33,10 +33,14 @@
 		scale: 2.5
 	},
 	attributes: {
-		backpack: {
-			quantitySlots: 12,
-			storageTags: ["tool-knife", "tool-axe"],
-			attachedShape: { base: "item/testbag-attached" }
-		}
+      attachableToEntity: {
+        categoryCode: "backpackAttachment",
+        attachedShape: { base: "item/testbag-attached" },
+      },
+      backpack: {
+          quantitySlots: 12,
+          storageTags: ["tool-knife", "tool-axe"],
+          attachedShape: { base: "item/testbag-attached" }
+      }
 	}
 }

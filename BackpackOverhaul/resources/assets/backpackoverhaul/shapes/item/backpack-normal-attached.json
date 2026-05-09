@@ -61,7 +61,14 @@
 						"west": { "texture": "#null", "uv": [ 0.0, 0.0, 0.5, 0.5 ], "enabled": false },
 						"up": { "texture": "#null", "uv": [ 0.0, 0.0, 0.5, 0.5 ], "enabled": false },
 						"down": { "texture": "#null", "uv": [ 0.0, 0.0, 0.5, 0.5 ], "enabled": false }
-					}
+					},
+                    "attachmentpoints": [
+                      {
+                        "code": "HeadAP",
+                        "posX": "0.0","posY": "0.0","posZ": "0.0",
+                        "rotationX": "0.0","rotationY": "0.0","rotationZ": "0.0"
+                      }
+                    ]
 				},
 				{
 					"name": "backpack2",
